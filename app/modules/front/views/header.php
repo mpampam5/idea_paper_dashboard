@@ -55,17 +55,18 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
 
         <div class="profile">
-          <div class="col-lg-12">
-            <div class="border-bottom text-center pb-4 mt-4">
-              <img src="<?=base_url()?>_template/front/images/faces/face12.jpg" alt="profile" class="img-lg rounded-circle mb-3">
+          <div class="col-lg-12 cover">
+            <div class="text-center pb-4 pt-4">
+              <img src="<?=base_url()?>_template/front/images/faces/face12.jpg" alt="profile" class="profile-image img-lg rounded-circle mb-3">
               <div class="mb-3">
-                <h4>David Grey. H</h4>
-                <h5>Rp.100.000</h5>
+                <h4 class="profile-name"><?=strtoupper(profile('nama'))?></h4>
+                <h5 class="profile-id">ID.REG : <?=profile('id_register')?></h5>
+                <h5 class="profile-balance">Rp.100.000</h5>
               </div>
               <!-- <p class="w-75 mx-auto mb-3">Bureau Oberhaeuser is a design bureau focused on Information- and Interface Design. </p> -->
               <div class="d-flex justify-content-center">
-                <button class="btn btn-success btn-sm mr-1">Deposit</button>
-                <button class="btn btn-success btn-sm">Withdraw</button>
+                <button class="btn btn-primary btn-sm mr-1">TOP UP</button>
+                <button class="btn btn-primary btn-sm">WITHDRAW</button>
               </div>
             </div>
             <!-- <button class="btn btn-primary btn-block mb-2">Preview</button> -->
@@ -73,12 +74,6 @@
         </div>
 
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">
-              <i class="ti-home menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
 
           <li class="nav-item">
             <a class="nav-link" href="pages/widgets/widgets.html">
@@ -89,6 +84,13 @@
 
           <li class="nav-item">
             <a class="nav-link" href="pages/widgets/widgets.html">
+              <i class="fa fa-refresh menu-icon"></i>
+              <span class="menu-title">History Transaksi</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="<?=site_url('logout')?>">
               <i class="fa fa-sign-in menu-icon"></i>
               <span class="menu-title">Logout</span>
             </a>
