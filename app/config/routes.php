@@ -59,3 +59,11 @@ $route['mem-panel'] = 'front/login/login';
 $route['sign-in-action'] = 'front/login/login/action';
 
 $route['logout'] = 'front/login/login/logout';
+
+$route['dashboard'] = 'front/dashboard';
+
+$route['topup'] = 'front/topup';
+
+$route['topup-add'] = 'front/topup/add';
+
+$route['topup-detail/(:num)'] = 'front/topup/detail/$1';

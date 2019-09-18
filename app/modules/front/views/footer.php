@@ -1,12 +1,24 @@
-</div>
-<!-- main-panel ends -->
-</div>
-<!-- page-body-wrapper ends -->
+
 </div>
 <!-- container-scroller -->
 
 <!-- plugins:js -->
-
+<!-- modal -->
+<div class="modal fade" id="modalGue" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        </div>
+        <div class="modal-body" id="modalContent" style="max-height: 487px; overflow-y: auto;"></div>
+        <div  id="modalFooter"></div>
+      </div>
+    </div>
+</div>
+<!-- end model -->
 <!-- endinject -->
 <!-- End plugin js for this page -->
 <!-- inject:js -->
@@ -23,9 +35,35 @@
 <!-- End custom js for this page-->
 
 
-<!-- <script type="text/javascript">
-  window.addEventListener ("touchmove", function (event) { event.preventDefault (); }, {passive: false});
-</script> -->
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $('#modalGue').on('hide.bs.modal', function () {
+			setTimeout(function(){
+					$('#modalTitle, #modalContent').html('');
+				}, 500);
+	   });
+});
+
+
+
+
+
+
+
+//   var prevScrollpos = window.pageYOffset;
+// window.onscroll = function() {
+// var currentScrollPos = window.pageYOffset;
+//   if (prevScrollpos > currentScrollPos) {
+//     document.getElementById("navbar").style.top = "0";
+//   } else {
+//     document.getElementById("navbar").style.top = "-160px";
+//   }
+//   prevScrollpos = currentScrollPos;
+// }
+
+</script>
+
 
 </body>
 

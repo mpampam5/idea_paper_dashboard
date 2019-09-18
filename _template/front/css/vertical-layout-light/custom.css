@@ -10,6 +10,13 @@ a:hover {
   text-decoration: none;
 }
 
+@media (max-width: 767px)
+{
+.content-wrapper {
+    padding: 0.50rem 0.50rem;
+  }
+}
+
 
 @media (max-width: 991px)
 {
@@ -30,6 +37,28 @@ a:hover {
   font-size: 30px;
   padding-top:10px;
   color: #ffd600;
+}
+
+/* module */
+.module-title{
+  width: 100%;
+  font-weight: bold;
+  font-size: 20px;
+  padding-top:10px;
+  color: #ffd600;
+}
+
+.back-title{
+  font-size: 20px;
+  margin-left:20px;
+  width: 50px;
+  color: #ffd600;
+  text-decoration: none;
+}
+
+.back-title:hover{
+  color: #ffd600;
+  text-decoration: none;
 }
 
 
@@ -287,3 +316,118 @@ touch-action: pan-y;
 .profile-image{
   border: 2px solid #d4d4d4;
 }
+
+.modal .modal-dialog{
+  margin-top: 20px;
+}
+
+.modal .modal-dialog .modal-content .modal-header{
+  padding: 10px 10px;
+}
+
+.modal-header .close{
+  margin : -18px -2px -25px auto;
+}
+/*
+.modal-dialog{
+  width: 100%;
+  height: 100%;
+} */
+
+/* topup */
+
+.btn-topup{
+  position: fixed;
+  bottom: 20px;
+  right:20px;
+}
+
+ul.list-topup{
+  list-style-type: none;
+  padding-left: 0!important;
+}
+
+ul.list-topup li{
+  width: 100%;
+  margin-top: 10px;
+  padding: 9px 3px 9px 9px;
+  /* border-bottom: 1px solid #9f9f9f; */
+  box-shadow: 1px 1px 3px #dadada;
+  position: relative;
+}
+
+ul.list-topup li a{
+  text-decoration: none;
+  width: 100%;
+  position: relative;
+}
+
+ul.list-topup li a span.nominal{
+  font-size: 16px;
+  font-weight: 600;
+  color: #383838;
+  display: block;
+}
+
+/* ul.list-topup li a span.kode_transaksi{
+  font-size: 14px;
+  font-weight: 600;
+  color: #383838;
+  display: block;
+} */
+
+ul.list-topup li a span.bank{
+  color: #0061a7;
+  line-height: 14px;
+  display: block;
+}
+
+ul.list-topup li a span.date{
+  color: #414141;
+  font-size: 12px;
+  display: block;
+}
+
+ul.list-topup li span.status{
+  font-size: 10px;
+  position: absolute;
+  top: 5px;
+  right: 7px;
+}
+
+
+
+table.detail-topup{
+  font-size: 12px;
+  width: 100%;
+  padding: 9px 3px 9px 9px;
+  box-shadow: 1px 1px 3px #dadada;
+}
+
+table.detail-topup tr td{
+  padding: 5px;
+}
+
+.pembayaran{
+  font-size: 12px;
+  margin-top: 15px;
+  width: 100%;
+  padding: 9px 3px 9px 9px;
+  box-shadow: 1px 1px 3px #dadada;
+}
+
+.pembayaran table.detail-pembayaran tr td{
+  padding: 5px;
+}
+
+.pembayaran p{
+  font-size: 12px;
+}
+
+.pembayaran ul li{
+  font-size: 12px;
+}
+
+
+
+/* end topup */
