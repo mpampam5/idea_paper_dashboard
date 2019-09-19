@@ -21,12 +21,11 @@
   <link rel="stylesheet" href="<?=base_url()?>_template/front/css/vertical-layout-light/custom.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="<?=base_url()?>_template/front/images/favicon.png" />
-
-
+  <link rel="stylesheet" href="<?=base_url()?>_template/front/vendors/jquery-toast-plugin/jquery.toast.min.css">
 
   <script src="<?=base_url()?>_template/front/vendors/js/vendor.bundle.base.js"></script>
+  <script src="<?=base_url()?>_template/front/vendors/jquery-toast-plugin/jquery.toast.min.js"></script>
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
-    

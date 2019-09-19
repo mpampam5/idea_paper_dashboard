@@ -64,6 +64,10 @@ $route['dashboard'] = 'front/dashboard';
 
 $route['topup'] = 'front/topup';
 
+$route['topup-json'] = 'front/topup/json';
+
 $route['topup-add'] = 'front/topup/add';
 
-$route['topup-detail/(:num)'] = 'front/topup/detail/$1';
+$route['topup-add-action'] = 'front/topup/add_action';
+
+$route['topup-detail/(:num)/(:any)'] = 'front/topup/detail/$1/$2';

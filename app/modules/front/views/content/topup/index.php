@@ -1,9 +1,60 @@
+<style media="screen">
+@-webkit-keyframes placeHolderShimmer {
+        0% {
+          background-position: -468px 0;
+        }
+        100% {
+          background-position: 468px 0;
+        }
+      }
+
+      @keyframes placeHolderShimmer {
+        0% {
+          background-position: -468px 0;
+        }
+        100% {
+          background-position: 468px 0;
+        }
+      }
+
+      .content-placeholder {
+        display: inline-block;
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-name: placeHolderShimmer;
+        animation-name: placeHolderShimmer;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        background: #f6f7f8;
+        background: -webkit-gradient(linear, left top, right top, color-stop(8%, #eeeeee), color-stop(18%, #dddddd), color-stop(33%, #eeeeee));
+        background: -webkit-linear-gradient(left, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+        background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+        -webkit-background-size: 800px 104px;
+        background-size: 800px 104px;
+        height: inherit;
+        position: relative;
+      }
+
+</style>
+
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" id="navbar">
-  <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center" style="width:100%!important">
+  <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center" >
     <a href="<?=site_url("dashboard")?>" class="back-title"><i class="fa fa-arrow-left"></i></a>
     <h5 class="module-title" style="font-size:20px">
       TOP UP
     </h5>
+  </div>
+  <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+
+
+    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" id="reload-list" type="button">
+      <span class="ti-reload"></span>
+    </button>
+
   </div>
 
 </nav>
@@ -13,74 +64,16 @@
     <div class="main-panel" id="main-panel">
       <div class="content-wrapper">
         <ul class="list-topup">
-          <li>
-            <a href="<?=site_url("topup-detail/1")?>">
-                <span class="nominal"> Rp.100.000</span>
-                <!-- <span class="kode_transaksi">#TU101194001</span> -->
-                <span class="bank"> Transfer Ke Bank BCA</span>
-                <span class="date"> <i class="fa fa-calendar"></i> 10/11/2019 11:30 #TU101194001</span>
-            </a>
-            <span class="status badge badge-pill badge-success"> <i class="fa fa-check"></i> success</span>
-          </li>
 
-          <li>
-            <a href="<?=site_url("topup-detail/1")?>">
-                <span class="nominal"> Rp.100.000</span>
-                <span class="bank"> Transfer Ke Bank BCA</span>
-                <span class="date"> <i class="fa fa-calendar"></i> 10/11/2019 11:30 #TU101194422</span>
-            </a>
-            <span class="status badge badge-pill badge-warning text-white"> <i class="fa fa-check"></i> pending</span>
-          </li>
-
-          <li>
-            <a href="<?=site_url("topup-detail/1")?>">
-                <span class="nominal"> Rp.100.000</span>
-                <span class="bank"> Transfer Ke Bank BCA</span>
-                <span class="date"> <i class="fa fa-calendar"></i> 10/11/2019 11:30 #TU10119443</span>
-            </a>
-            <span class="status badge badge-pill badge-danger"> <i class="fa fa-check"></i> cancel</span>
-          </li>
-
-          <li>
-            <a href="<?=site_url("topup-detail/1")?>">
-                <span class="nominal"> Rp.100.000</span>
-                <span class="bank"> Transfer Ke Bank BCA</span>
-                <span class="date"> <i class="fa fa-calendar"></i> 10/11/2019 11:30 #TU101194234</span>
-            </a>
-            <span class="status badge badge-pill badge-success"> <i class="fa fa-check"></i> success</span>
-          </li>
-
-          <li>
-            <a href="<?=site_url("topup-detail/1")?>">
-                <span class="nominal"> Rp.100.000</span>
-                <span class="bank"> Transfer Ke Bank BCA</span>
-                <span class="date"> <i class="fa fa-calendar"></i> 10/11/2019 11:30 #TU101194321</span>
-            </a>
-            <span class="status badge badge-pill badge-success"> <i class="fa fa-check"></i> success</span>
-          </li>
-
-          <li>
-            <a href="<?=site_url("topup-detail/1")?>">
-                <span class="nominal"> Rp.100.000</span>
-                <span class="bank"> Transfer Ke Bank BCA</span>
-                <span class="date"> <i class="fa fa-calendar"></i> 10/11/2019 11:30 #TU101194011</span>
-            </a>
-            <span class="status badge badge-pill badge-success"> <i class="fa fa-check"></i> success</span>
-          </li>
-
-          <li>
-            <a href="<?=site_url("topup-detail/1")?>">
-                <span class="nominal"> Rp.100.000</span>
-                <span class="bank"> Transfer Ke Bank BCA</span>
-                <span class="date"> <i class="fa fa-calendar"></i> 10/11/2019 11:30 #TU101194002</span>
-            </a>
-            <span class="status badge badge-pill badge-success"> <i class="fa fa-check"></i> success</span>
-          </li>
-
-
-
+          <div id="list-topup"></div>
+          <div id="load_data_message"></div>
 
         </ul>
+
+        <!-- <p class="text-center ajax-load" style="display:none;">
+          <i class="fa fa-spinner fa-spin fa-fw"></i>
+          <span>Loading...</span>
+        </p> -->
       </div>
 
 
@@ -93,15 +86,88 @@
 
 <script type="text/javascript">
 
-// $( window ).on( "load", function(e) {
-//   e.preventDefault();
-//   $('.modal-dialog').removeClass('modal-sm')
-//                   .removeClass('modal-md')
-//                   .addClass('modal-lg');
-//   $("#modalTitle").text('TOP UP');
-//   $('#modalContent').load($("<?=site_url("topup-detail/1")?>topup-add").attr('data-href'));
-//   $("<?=site_url("topup-detail/1")?>modalGue").modal('show');
-//     });
+$(document).ready(function(){
+
+  var limit = 10;
+  var start = 0;
+  var action = 'inactive';
+
+  function lazzy_loader(limit)
+    {
+      var output = '';
+      for(var count=0; count<limit; count++)
+      {
+        output += `<li>
+                    <a href="#">
+                        <span class="nominal content-placeholder" style="width:75%;margin:3px;">&nbsp;</span>
+                        <span class="bank content-placeholder" style="width:98%;margin:3px;">&nbsp;</span>
+                        <span class="date content-placeholder" style="width:98%;margin:3px;">&nbsp;</span>
+                    </a>
+                    <span class="status content-placeholder" style="width:20%;margin:3px;height:29px;">&nbsp;</span>
+                  </li>`;
+      }
+      $('#load_data_message').html(output);
+    }
+
+
+    lazzy_loader(limit);
+
+    function load_data(limit, start)
+    {
+      $.ajax({
+        url:"<?php echo base_url(); ?>topup-json",
+        method:"POST",
+        data:{limit:limit, start:start},
+        cache: false,
+        success:function(data)
+        {
+          if(data == '')
+          {
+            $('#load_data_message').html('');
+            action = 'active';
+          }
+          else
+          {
+            $('#list-topup').append(data);
+            $('#load_data_message').html("");
+            action = 'inactive';
+          }
+        }
+      })
+    }
+
+    if(action == 'inactive')
+    {
+      action = 'active';
+      load_data(limit, start);
+    }
+
+    $(window).scroll(function(){
+      if($(window).scrollTop() + $(window).height() > $("#list-topup").height() && action == 'inactive')
+      {
+        lazzy_loader(limit);
+        action = 'active';
+        start = start + limit;
+        setTimeout(function(){
+          load_data(limit, start);
+        }, 1000);
+      }
+    });
+
+    $(document).on("click","#reload-list",function(e){
+      location.href="<?=site_url("topup")?>";
+      // $('#list-topup').html("");
+      // lazzy_loader(limit = 10);
+      // action = 'active';
+      // start = start;
+      // setTimeout(function(){
+      //   load_data(limit = 10, start = 0);
+      // }, 1000);
+    });
+
+
+});
+
 
 
 $(document).on("click","#topup-add",function(e){

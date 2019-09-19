@@ -391,8 +391,8 @@ ul.list-topup li a span.date{
 ul.list-topup li span.status{
   font-size: 10px;
   position: absolute;
-  top: 5px;
-  right: 7px;
+  top: 8px;
+  right: 5px;
 }
 
 
@@ -407,6 +407,10 @@ table.detail-topup{
 table.detail-topup tr td{
   padding: 5px;
 }
+
+table.detail-topup tr td .btn-cancel-topup{
+  font-size:12px;
+  }
 
 .pembayaran{
   font-size: 12px;

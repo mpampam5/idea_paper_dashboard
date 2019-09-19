@@ -34,7 +34,7 @@
           </div>
           <!-- <p class="w-75 mx-auto mb-3">Bureau Oberhaeuser is a design bureau focused on Information- and Interface Design. </p> -->
           <div class="d-flex justify-content-center">
-            <button class="btn btn-primary btn-sm mr-1">TOP UP</button>
+            <a href="<?=site_url("topup")?>" class="btn btn-primary btn-sm mr-1">TOP UP</a>
             <button class="btn btn-primary btn-sm">WITHDRAW</button>
           </div>
         </div>

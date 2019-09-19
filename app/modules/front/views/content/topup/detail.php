@@ -35,14 +35,14 @@
 
           <tr>
             <td>Status</td>
-            <td>: Pending</td>
+            <td>: <span class="text-warning"> Pending</span></td>
           </tr>
           <tr>
 
 
             <td colspan="2" style="padding-top:20px!important;">
               <hr>
-              <a href="#" class="btn btn-sm btn-danger"> Batalkan</a>
+              <a href="#" class="btn-cancel-topup btn btn-sm btn-danger"> Batalkan</a>
             </td>
           </tr>
         </table>
