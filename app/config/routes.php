@@ -71,3 +71,5 @@ $route['topup-add'] = 'front/topup/add';
 $route['topup-add-action'] = 'front/topup/add_action';
 
 $route['topup-detail/(:num)/(:any)'] = 'front/topup/detail/$1/$2';
+
+$route['topup-konfirmasi/(:num)/(:any)'] = 'front/topup/konfirmasi/$1/$2';

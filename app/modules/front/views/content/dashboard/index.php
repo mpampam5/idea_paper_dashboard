@@ -30,7 +30,7 @@
           <div class="mb-3">
             <h4 class="profile-name"><?=strtoupper(profile('nama'))?></h4>
             <h5 class="profile-id">ID.REG : <?=profile('id_register')?></h5>
-            <h5 class="profile-balance">Rp.100.000</h5>
+            <h5 class="profile-balance">Rp.<?=format_rupiah(balance());?></h5>
           </div>
           <!-- <p class="w-75 mx-auto mb-3">Bureau Oberhaeuser is a design bureau focused on Information- and Interface Design. </p> -->
           <div class="d-flex justify-content-center">
@@ -100,7 +100,7 @@
 										<div class="ml-sm-3 ml-md-0 ml-xl-3 mt-2 mt-sm-0 mt-md-2 mt-xl-0">
 											<h6 class="mb-0"><?=strtoupper(profile('nama'))?></h6>
 											<p class="text-muted mb-1">ID.REG : <?=profile('id_register')?></p>
-											<p class="mb-0 text-primary font-weight-bold">Rp.100.000</p>
+											<p class="mb-0 text-primary font-weight-bold">Rp.<?=format_rupiah(balance())?></p>
 										</div>
 
                     <div class="top-up">

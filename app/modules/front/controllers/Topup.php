@@ -33,6 +33,8 @@ class Topup extends MY_Controller{
             $status = "badge-primary";
           }elseif ($row->status == "cancel") {
             $status = "badge-danger";
+          }elseif ($row->status == "expire") {
+            $status = "badge-dark";
           }
 
   				$output .= '<li>
@@ -50,6 +52,16 @@ class Topup extends MY_Controller{
     }
   }
 
+
+  function detail($id,$kode_transaksi)
+  {
+    if ($row = $this->model->get_detail($id,$kode_transaksi)) {
+        $this->template->set_title("TOP UP");
+        $data['row'] = $row;
+        $this->template->view("content/topup/detail",$data);
+    }
+  }
+
   function add()
   {
     $this->template->set_title("TOP UP");
@@ -63,7 +75,7 @@ class Topup extends MY_Controller{
     if ($this->input->is_ajax_request()) {
       $this->load->library("form_validation");
       $json = array('success'=>false, 'alert'=>array());
-      $this->form_validation->set_rules("nominal","Nominal","trim|xss_clean|required|numeric");
+      $this->form_validation->set_rules("nominal","Nominal","trim|xss_clean|required|numeric|callback__cek_nominal");
       $this->form_validation->set_rules("metode_pembayaran","Metode Pembayaran","trim|xss_clean|required|numeric",[
         "required"=>"Pilih metode pembayaran"
       ]);
@@ -72,17 +84,22 @@ class Topup extends MY_Controller{
       if ($this->form_validation->run()) {
         $created = date("Y-m-d h:i:s");// pendefinisian tanggal awal
         $time_expire = date('Y-m-d h:i:s', strtotime('+1 days', strtotime($created))); //operasi penjumlahan tanggal sebanyak 6 hari
+        // random num
+        $x = 3;
+        $randomNum = substr(str_shuffle("1234567"), 0, $x);
+        $nominal = $this->input->post("nominal",true);
+        $topup = substr_replace($nominal,$randomNum,-3);
 
           $data = array("id_person" => sess('id_person'),
                         "kode_transaksi" => $this->_kode(),
-                        "nominal" => $this->input->post("nominal",true),
+                        "nominal" => $topup,
                         "metode_pembayaran" =>$this->input->post("metode_pembayaran",true),
                         "created" => $created,
                         "time_expire" => $time_expire
                       );
         $this->model->get_insert("trans_person_deposit",$data);
         $last_id = $this->db->insert_id();
-        $json['url'] = site_url("topup-detail/$last_id");
+        $json['url'] = site_url("topup-detail/$last_id/".$data['kode_transaksi']);
         $json['alert'] = "add new data successful";
         $json['success'] =  true;
       }else {
@@ -96,12 +113,24 @@ class Topup extends MY_Controller{
     }
   }
 
-
-  function detail($id)
+  function konfirmasi($id,$konfirmasi)
   {
-    $this->template->set_title("TOP UP");
-    $this->template->view("content/topup/detail",array());
+    if ($this->input->is_ajax_request()) {
+      $cek = array('cancel','proses');
+      if (in_array($konfirmasi,$cek)) {
+          if ($this->model->get_update('trans_person_deposit',['status'=>"$konfirmasi"],["id_trans_person_deposit"=>$id])) {
+              $json['success'] = "success";
+              $json['alert']   = 'success';
+          }
+      }else {
+        $json['success'] = "error";
+        $json['alert']   = 'gagal';
+      }
+
+      echo json_encode($json);
+    }
   }
+
 
 
   function _kode()
@@ -121,5 +150,26 @@ class Topup extends MY_Controller{
   }
 
 
+  function _cek_nominal($str)
+  {
+    if ($str < config_all("min-topup")) {
+        if (config_all("min-topup")!=0) {
+          $this->form_validation->set_message('_cek_nominal', 'Minimal Top up Rp.'.format_rupiah(config_all('min-topup')));
+          return false;
+        }else {
+          return true;
+        }
+      }elseif ($str > config_all("max-topup")) {
+        if (config_all("max-topup")!=0) {
+          $this->form_validation->set_message('_cek_nominal', 'Maximal Top up Rp.'.format_rupiah(config_all('max-topup')));
+          return false;
+        }else {
+          return true;
+        }
+      }else {
+        return true;
+      }
+
+  }
 
 }

@@ -25,10 +25,47 @@ class Topup_model extends CI_Model{
 		return $query;
 	}
 
-  // get_detail($id,$kode_transaksi)
-  // {
-  //
-  // }
+  function get_detail($id,$kode_transaksi)
+    {
+
+      $qry = $this->db->get_where("trans_person_deposit",[
+                                                          "id_trans_person_deposit"=>$id,
+                                                          "kode_transaksi"=>$kode_transaksi,
+                                                          "id_person"=>sess('id_person')
+                                                        ])->row();
+      if ($row = $qry) {
+        if ($row->status=="pending") {
+            if (masa_berlaku($row->time_expire) == false) {
+                $this->model->get_update("trans_person_deposit",['status'=>"expire"],['id_trans_person_deposit'=>$id]);
+            }
+        }
+      }
+
+
+      $query = $this->db->select("trans_person_deposit.id_trans_person_deposit,
+                                  trans_person_deposit.kode_transaksi,
+                                  trans_person_deposit.id_person,
+                                  trans_person_deposit.metode_pembayaran,
+                                  trans_person_deposit.nominal,
+                                  trans_person_deposit.`status`,
+                                  trans_person_deposit.created,
+                                  trans_person_deposit.time_expire,
+                                  config_rekening.nama_rekening,
+                                  config_rekening.no_rekening,
+                                  ref_bank.inisial_bank")
+                        ->from("trans_person_deposit")
+                        ->join("config_rekening","config_rekening.id_rekening = trans_person_deposit.metode_pembayaran")
+                        ->join("ref_bank","ref_bank.id_bank = config_rekening.id_bank")
+                        ->where("trans_person_deposit.id_trans_person_deposit",$id)
+                        ->where("trans_person_deposit.kode_transaksi",$kode_transaksi)
+                        ->where("trans_person_deposit.id_person",sess('id_person'))
+                        ->get();
+        $rows =  $query->row();
+
+
+
+        return $rows;
+    }
 
   function get_rekening()
   {
@@ -44,6 +81,12 @@ class Topup_model extends CI_Model{
   function get_insert($table,$data)
   {
     return $this->db->insert($table,$data);
+  }
+
+  function get_update($table,$data,$where)
+  {
+    return $this->db->where($where)
+                    ->update($table,$data);
   }
 
 }

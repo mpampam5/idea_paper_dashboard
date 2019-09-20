@@ -2,7 +2,7 @@
   <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center" style="width:100%!important">
     <a href="<?=site_url("topup")?>" class="back-title"><i class="fa fa-arrow-left"></i></a>
     <h5 class="module-title" style="font-size:20px">
-      TOP UP #TU101193001
+      TOP UP #<?=$row->kode_transaksi?>
     </h5>
   </div>
 
@@ -15,69 +15,188 @@
         <table class="detail-topup">
           <tr>
             <td>Kode Transaksi</td>
-            <td>: <b>#TU101193001</b></td>
+            <td>: <b>#<?=$row->kode_transaksi?></b></td>
           </tr>
 
           <tr>
             <td>Waktu</td>
-            <td>: 10/11/2019 03:31</td>
+            <td>: <?=date('d/m/Y H:i', strtotime($row->created))?></td>
           </tr>
 
           <tr>
             <td>Jumlah</td>
-            <td>: Rp.100.000</td>
+            <td>: Rp.<?=format_rupiah($row->nominal)?></td>
           </tr>
 
           <tr>
             <td>Metode Pembayaran</td>
-            <td>: BCA</td>
+            <td>: <?=$row->inisial_bank?></td>
           </tr>
 
           <tr>
+            <?php
+            if ($row->status == "pending") {
+              $status = "text-warning";
+            }elseif ($row->status == "success") {
+              $status = "text-success";
+            }elseif ($row->status == "proses") {
+              $status = "text-primary";
+            }elseif ($row->status == "cancel") {
+              $status = "text-danger";
+            }elseif ($row->status == "expire") {
+              $status = "text-dark";
+            }
+             ?>
             <td>Status</td>
-            <td>: <span class="text-warning"> Pending</span></td>
+            <td>: <span class="<?=$status?>"> <?=strtoupper($row->status)?></span></td>
           </tr>
-          <tr>
 
-
-            <td colspan="2" style="padding-top:20px!important;">
-              <hr>
-              <a href="#" class="btn-cancel-topup btn btn-sm btn-danger"> Batalkan</a>
-            </td>
-          </tr>
         </table>
 
         <div class="pembayaran">
 
-          <p>Silahkan Melakukan Pembayaran Ke : </p>
+          <p>Melakukan Pembayaran Ke : </p>
           <hr>
           <table class="detail-pembayaran">
             <tr>
               <td>No.Rekening</td>
-              <td>: 123456789</td>
+              <td>: <?=$row->no_rekening?></td>
             </tr>
 
             <tr>
               <td>Nama Rekening</td>
-              <td>: Idea digital Indonesia</td>
+              <td>: <?=strtoupper($row->nama_rekening)?></td>
             </tr>
 
             <tr>
               <td>Bank</td>
-              <td>: BCA</td>
+              <td>: <?=$row->inisial_bank?></td>
             </tr>
 
           </table>
 
           <hr>
+          <?php if ($row->status == "pending"): ?>
+                <ul>
+                  <li>Silahkan Transfer Sebesar <b>Rp.<?=format_rupiah($row->nominal)?></b>.</li>
+                  <li>Untuk mempermudah proses verifikasi, silahkan transfer sesuai nominal di atas.</li>
+                  <li>Pembayaran Berlaku Sampai <?=date("d/m/Y H:i",strtotime($row->time_expire))?>.</li>
+                </ul>
+          <?php endif; ?>
 
-          <ul>
-            <li>Silahkan Transfer Seberasar <b>Rp. 100.000</b></li>
-            <li>Pembayaran Berlaku Sampai 11/11/2019 03:31</li>
-          </ul>
+          <?php if ($row->status=="expire"): ?>
+            Masa berlaku pembayaran telah berakhir. Pembayaran berlaku sampai batas <?=date("d/m/Y H:i",strtotime($row->time_expire))?>
+          <?php endif; ?>
+
+          <?php if ($row->status == "proses"): ?>
+            Transaksi anda sedang di proses.
+          <?php endif; ?>
+
+          <?php if ($row->status == "success"): ?>
+            Transaksi sukses.
+          <?php endif; ?>
+
+          <?php if ($row->status == "cancel"): ?>
+            Anda telah membatalkan transaksi.
+          <?php endif; ?>
+
         </div>
+
+        <?php if ($row->status == "pending"): ?>
+          <p style="font-size:11px" class="text-center mt-2">Silahkan menekan tombol konfirmasi setelah melakukan pembayaran, untuk segera di proses.</p>
+            <div class="tombol-detail-topup mt-4 text-center">
+              <a href="<?=site_url("topup-konfirmasi/".$row->id_trans_person_deposit."/cancel")?>" id="cancel" class="btn-cancel-topup btn btn-sm btn-danger"> Batalkan</a>
+              <a href="<?=site_url("topup-konfirmasi/".$row->id_trans_person_deposit."/proses")?>" id="konfirmasi" class="btn-cancel-topup btn btn-sm btn-primary"> Konfirmasi</a>
+            </div>
+        <?php endif; ?>
 
       </div>
     </div>
   <!-- main-panel ends -->
   </div>
+
+
+  <script type="text/javascript">
+    $(document).on("click","#cancel",function(e){
+      e.preventDefault();
+      $('.modal-dialog').removeClass('modal-lg')
+                        .removeClass('modal-md')
+                        .addClass('modal-sm');
+      $("#modalTitle").text('Please Confirm');
+      $('#modalContent').html(`<p class="mb-4 text-center"> Yakin ingin membatalkan transaksi?</p>
+                              <div class="text-center">
+                                <button type='button' class='btn btn-secondary text-white btn-sm' data-dismiss='modal'>Batal</button>
+                                <button type='button' class='btn btn-primary btn-sm' id='ya-batal' data-id=`+$(this).attr('alt')+`  data-url=`+$(this).attr('href')+`>Ya, Saya yakin</button>
+                              </div>
+                            `);
+      $("#modalGue").modal('show');
+    });
+
+    $(document).on('click','#ya-batal',function(e){
+        $(this).prop('disabled',true)
+                .text('Processing...');
+        $.ajax({
+                url:$(this).data('url'),
+                type:'post',
+                cache:false,
+                dataType:'json',
+                success:function(json){
+                  $('#modalGue').modal('hide');
+                  $.toast({
+                    text: json.alert,
+                    showHideTransition: 'slide',
+                    icon: json.success,
+                    loaderBg: '#f96868',
+                    position: 'bottom-center',
+                    afterHidden: function () {
+                        location.reload();
+                    }
+                  });
+
+
+                }
+              });
+      });
+
+    $(document).on("click","#konfirmasi",function(e){
+      e.preventDefault();
+      $('.modal-dialog').removeClass('modal-lg')
+                        .removeClass('modal-md')
+                        .addClass('modal-sm');
+      $("#modalTitle").text('Please Confirm');
+      $('#modalContent').html(`<p class="mb-4 text-center"> Sudah Melakukan Pembayaran?</p>
+                              <div class="text-center">
+                                <button type='button' class='btn btn-secondary text-white btn-sm' data-dismiss='modal'>Batal</button>
+                                <button type='button' class='btn btn-primary btn-sm' id='ya-konfirmasi' data-id=`+$(this).attr('alt')+`  data-url=`+$(this).attr('href')+`>Konfirmasi</button>
+                              </div>
+                            `);
+      $("#modalGue").modal('show');
+    });
+
+    $(document).on('click','#ya-konfirmasi',function(e){
+        $(this).prop('disabled',true)
+                .text('Processing...');
+        $.ajax({
+                url:$(this).data('url'),
+                type:'post',
+                cache:false,
+                dataType:'json',
+                success:function(json){
+                  $('#modalGue').modal('hide');
+                  $.toast({
+                    text: json.alert,
+                    showHideTransition: 'slide',
+                    icon: json.success,
+                    loaderBg: '#f96868',
+                    position: 'bottom-center',
+                    afterHidden: function () {
+                        location.reload();
+                    }
+                  });
+
+
+                }
+              });
+      });
+
+  </script>

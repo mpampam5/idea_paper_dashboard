@@ -9,6 +9,18 @@ if ( ! function_exists('sess'))
   }
 }
 
+if ( ! function_exists('config_all'))
+{
+  function config_all($field)
+  {
+     $ci=& get_instance();
+     $query = $ci->db->where("config",$field)
+                     ->get("config_all")
+                     ->row();
+     return $query->value;
+  }
+}
+
 if ( ! function_exists('profile'))
 {
   function profile($field)
@@ -30,4 +42,45 @@ if ( ! function_exists('format_rupiah'))
   {
     return number_format($int, 0, ',', '.');
   }
+}
+
+if ( ! function_exists('masa_berlaku'))
+{
+  function masa_berlaku($date)
+  {
+    $awal  = strtotime($date); //waktu awal
+    $akhir = strtotime(date("Y-m-d H:i:s")); //waktu akhir
+    $diff  = $awal-$akhir;
+    $jam   = floor($diff / (60 * 60));
+    if ($jam > 0) {
+      return true;
+    }else {
+      return false;
+    }
+  }
+}
+
+
+function balance()
+{
+
+  $topup = _cek_topup();
+  $withdraw = 0;
+  $total = $topup-$withdraw;
+  return $total;
+}
+
+function _cek_topup()
+{
+  $ci=& get_instance();
+  $qry = $ci->db->select("id_trans_person_deposit,
+                                id_person,
+                                SUM(nominal) AS nominal,
+                                status")
+                      ->from("trans_person_deposit")
+                      ->where("id_person",sess('id_person'))
+                      ->where("status","success")
+                      ->get()
+                      ->row();
+  return $qry->nominal;
 }

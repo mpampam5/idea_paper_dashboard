@@ -58,22 +58,16 @@
   </div>
 
 </nav>
-<!-- partial -->
+
+
 <div class="container-fluid page-body-wrapper">
-    <!-- partial -->
+
     <div class="main-panel" id="main-panel">
       <div class="content-wrapper">
         <ul class="list-topup">
-
           <div id="list-topup"></div>
           <div id="load_data_message"></div>
-
         </ul>
-
-        <!-- <p class="text-center ajax-load" style="display:none;">
-          <i class="fa fa-spinner fa-spin fa-fw"></i>
-          <span>Loading...</span>
-        </p> -->
       </div>
 
 
@@ -95,7 +89,7 @@ $(document).ready(function(){
   function lazzy_loader(limit)
     {
       var output = '';
-      for(var count=0; count<limit; count++)
+      for(var count=0; count<6; count++)
       {
         output += `<li>
                     <a href="#">
@@ -179,4 +173,6 @@ $(document).on("click","#topup-add",function(e){
   $('#modalContent').load($(this).attr('data-href'));
   $("#modalGue").modal('show');
 });
+
+
 </script>

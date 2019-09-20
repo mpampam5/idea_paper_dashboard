@@ -16,7 +16,7 @@ class MY_Controller extends CI_Controller{
           redirect(site_url("mem-panel"));
       }
       $this->load->helper("front");
-      $this->load->library(array("front/template"));
+      $this->load->library(array("front/template","front/front"));
     }else {
       redirect("welcome","refresh");
     }

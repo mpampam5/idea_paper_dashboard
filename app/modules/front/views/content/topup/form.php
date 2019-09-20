@@ -1,6 +1,15 @@
 <div class="row">
   <div class="col-12">
-    <form class="" action="<?=$action?>" id="form">
+    <form class="" action="<?=$action?>" id="form" autocomplete="off">
+      <!-- <span style="font-size:12px">Untuk mempermudah proses transaksi, silahkan masukkan 3 angka unik di belakang nominal. contoh XXX.123</span> -->
+      <ul style="font-size:12px">
+        <?php if (config_all("min-topup")!=0): ?>
+          <li>Min - Top up : <b>Rp. <?=format_rupiah(config_all("min-topup"))?></b></li>
+        <?php endif; ?>
+        <?php if (config_all("max-topup")!=0): ?>
+          <li>Max - Top up : <b>Rp. <?=format_rupiah(config_all("max-topup"))?></b></li>
+        <?php endif; ?>
+      </ul>
       <div class="form-group">
         <input type="text" class="form-control" name="nominal" id="nominal" placeholder="Nominal">
       </div>
@@ -13,6 +22,8 @@
           <?php endforeach; ?>
         </select>
       </div>
+
+
 
       <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-sm btn-secondary text-white" name="button">Cancel</button>
       <button type="submit" id="submit" class="btn btn-sm btn-primary" name="button">TOP UP</button>
@@ -44,7 +55,7 @@ $.ajax({
               showHideTransition: 'slide',
               icon: 'success',
               loaderBg: '#f96868',
-              position: 'bottom-right',
+              position: 'bottom-center',
               afterHidden: function () {
                   location.href=json.url;
               }
