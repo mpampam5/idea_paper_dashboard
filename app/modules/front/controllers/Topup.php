@@ -100,7 +100,7 @@ class Topup extends MY_Controller{
         $this->model->get_insert("trans_person_deposit",$data);
         $last_id = $this->db->insert_id();
         $json['url'] = site_url("topup-detail/$last_id/".$data['kode_transaksi']);
-        $json['alert'] = "add new data successful";
+        $json['alert'] = "Top up successful";
         $json['success'] =  true;
       }else {
         foreach ($_POST as $key => $value)
@@ -116,9 +116,17 @@ class Topup extends MY_Controller{
   function konfirmasi($id,$konfirmasi)
   {
     if ($this->input->is_ajax_request()) {
-      $cek = array('cancel','proses');
+      $cek = array('cancel','proses','delete');
       if (in_array($konfirmasi,$cek)) {
-          if ($this->model->get_update('trans_person_deposit',['status'=>"$konfirmasi"],["id_trans_person_deposit"=>$id])) {
+          if ($konfirmasi=="delete") {
+              $json['url'] = site_url("topup");
+              $keterangan = "keterangan = is delete from user  | user_approved =".sess('id_person').",".profile("nama")." | waktu = ".date('Y-m-d h:i:s');
+              $json['status'] = "delete";
+          }else {
+            $keterangan = null;
+            $json['status'] = "approved";
+          }
+          if ($this->model->get_update('trans_person_deposit',['status'=>"$konfirmasi","keterangan"=>$keterangan],["id_trans_person_deposit"=>$id])) {
               $json['success'] = "success";
               $json['alert']   = 'success';
           }

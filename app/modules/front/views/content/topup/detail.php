@@ -78,7 +78,7 @@
           <hr>
           <?php if ($row->status == "pending"): ?>
                 <ul>
-                  <li>Silahkan Transfer Sebesar <b>Rp.<?=format_rupiah($row->nominal)?></b>.</li>
+                  <li>Silahkan Transfer Sebesar <b>Rp.<?=format_rupiah($row->nominal)?></b></li>
                   <li>Untuk mempermudah proses verifikasi, silahkan transfer sesuai nominal di atas.</li>
                   <li>Pembayaran Berlaku Sampai <?=date("d/m/Y H:i",strtotime($row->time_expire))?>.</li>
                 </ul>
@@ -105,9 +105,16 @@
         <?php if ($row->status == "pending"): ?>
           <p style="font-size:11px" class="text-center mt-2">Silahkan menekan tombol konfirmasi setelah melakukan pembayaran, untuk segera di proses.</p>
             <div class="tombol-detail-topup mt-4 text-center">
-              <a href="<?=site_url("topup-konfirmasi/".$row->id_trans_person_deposit."/cancel")?>" id="cancel" class="btn-cancel-topup btn btn-sm btn-danger"> Batalkan</a>
-              <a href="<?=site_url("topup-konfirmasi/".$row->id_trans_person_deposit."/proses")?>" id="konfirmasi" class="btn-cancel-topup btn btn-sm btn-primary"> Konfirmasi</a>
+              <a href="<?=site_url("topup-konfirmasi/".$row->id_trans_person_deposit."/delete")?>" id="konfirmasi" data-header="Yakin ingin menghapus?" class="btn-cancel-topup btn btn-sm btn-danger"> Hapus</a>
+              <a href="<?=site_url("topup-konfirmasi/".$row->id_trans_person_deposit."/cancel")?>" data-header="Yakin ingin membatalkan transaksi?" id="konfirmasi" class="btn-cancel-topup btn btn-sm btn-warning text-white"> Batalkan</a>
+              <a href="<?=site_url("topup-konfirmasi/".$row->id_trans_person_deposit."/proses")?>" id="konfirmasi" data-header="Sudah Melakukan Pembayaran?" class="btn-cancel-topup btn btn-sm btn-primary"> Konfirmasi</a>
             </div>
+        <?php endif; ?>
+
+        <?php if ($row->status=="expire" || $row->status=="cancel"): ?>
+          <div class="tombol-detail-topup mt-4 text-center">
+            <a href="<?=site_url("topup-konfirmasi/".$row->id_trans_person_deposit."/delete")?>" id="konfirmasi" data-header="Yakin ingin menghapus?" class="btn-cancel-topup btn btn-sm btn-danger"> Hapus</a>
+          </div>
         <?php endif; ?>
 
       </div>
@@ -117,54 +124,13 @@
 
 
   <script type="text/javascript">
-    $(document).on("click","#cancel",function(e){
-      e.preventDefault();
-      $('.modal-dialog').removeClass('modal-lg')
-                        .removeClass('modal-md')
-                        .addClass('modal-sm');
-      $("#modalTitle").text('Please Confirm');
-      $('#modalContent').html(`<p class="mb-4 text-center"> Yakin ingin membatalkan transaksi?</p>
-                              <div class="text-center">
-                                <button type='button' class='btn btn-secondary text-white btn-sm' data-dismiss='modal'>Batal</button>
-                                <button type='button' class='btn btn-primary btn-sm' id='ya-batal' data-id=`+$(this).attr('alt')+`  data-url=`+$(this).attr('href')+`>Ya, Saya yakin</button>
-                              </div>
-                            `);
-      $("#modalGue").modal('show');
-    });
-
-    $(document).on('click','#ya-batal',function(e){
-        $(this).prop('disabled',true)
-                .text('Processing...');
-        $.ajax({
-                url:$(this).data('url'),
-                type:'post',
-                cache:false,
-                dataType:'json',
-                success:function(json){
-                  $('#modalGue').modal('hide');
-                  $.toast({
-                    text: json.alert,
-                    showHideTransition: 'slide',
-                    icon: json.success,
-                    loaderBg: '#f96868',
-                    position: 'bottom-center',
-                    afterHidden: function () {
-                        location.reload();
-                    }
-                  });
-
-
-                }
-              });
-      });
-
     $(document).on("click","#konfirmasi",function(e){
       e.preventDefault();
       $('.modal-dialog').removeClass('modal-lg')
                         .removeClass('modal-md')
                         .addClass('modal-sm');
       $("#modalTitle").text('Please Confirm');
-      $('#modalContent').html(`<p class="mb-4 text-center"> Sudah Melakukan Pembayaran?</p>
+      $('#modalContent').html(`<p class="mb-4 text-center">`+$(this).attr('data-header')+`</p>
                               <div class="text-center">
                                 <button type='button' class='btn btn-secondary text-white btn-sm' data-dismiss='modal'>Batal</button>
                                 <button type='button' class='btn btn-primary btn-sm' id='ya-konfirmasi' data-id=`+$(this).attr('alt')+`  data-url=`+$(this).attr('href')+`>Konfirmasi</button>
@@ -190,7 +156,11 @@
                     loaderBg: '#f96868',
                     position: 'bottom-center',
                     afterHidden: function () {
+                      if (json.status!="delete") {
                         location.reload();
+                      }else {
+                        window.location.href='<?=site_url("topup")?>';
+                      }
                     }
                   });
 

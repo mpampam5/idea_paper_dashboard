@@ -19,6 +19,7 @@ class Topup_model extends CI_Model{
     $this->db->join("config_rekening","config_rekening.id_rekening = trans_person_deposit.metode_pembayaran");
     $this->db->join("ref_bank","ref_bank.id_bank = config_rekening.id_bank");
     $this->db->where("id_person",sess('id_person'));
+    $this->db->where("status !=","delete");
 		$this->db->order_by("id_trans_person_deposit", "DESC");
 		$this->db->limit($limit, $start);
 		$query = $this->db->get();
@@ -31,7 +32,7 @@ class Topup_model extends CI_Model{
       $qry = $this->db->get_where("trans_person_deposit",[
                                                           "id_trans_person_deposit"=>$id,
                                                           "kode_transaksi"=>$kode_transaksi,
-                                                          "id_person"=>sess('id_person')
+                                                          "id_person"=>sess('id_person'),
                                                         ])->row();
       if ($row = $qry) {
         if ($row->status=="pending") {
