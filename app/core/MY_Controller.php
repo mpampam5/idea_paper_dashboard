@@ -15,7 +15,7 @@ class MY_Controller extends CI_Controller{
           $this->session->sess_destroy();
           redirect(site_url("mem-panel"));
       }
-      $this->load->helper("front");
+      $this->load->helper(array("front",'enc_gue'));
       $this->load->library(array("front/template","front/front"));
     }else {
       redirect("welcome","refresh");

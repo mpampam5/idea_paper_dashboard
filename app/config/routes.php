@@ -73,3 +73,15 @@ $route['topup-add-action'] = 'front/topup/add_action';
 $route['topup-detail/(:num)/(:any)'] = 'front/topup/detail/$1/$2';
 
 $route['topup-konfirmasi/(:num)/(:any)'] = 'front/topup/konfirmasi/$1/$2';
+
+$route['withdraw'] = 'front/withdraw';
+
+$route['withdraw-json'] = 'front/withdraw/json';
+
+$route['withdraw-add'] = 'front/withdraw/add';
+
+$route['withdraw-add-action'] = 'front/withdraw/add_action';
+
+$route['withdraw-konfirmasi/(:any)/(:any)'] = 'front/withdraw/konfirmasi/$1/$2';
+
+$route['withdraw-detail/(:any)/(:any)'] = 'front/withdraw/detail/$1/$2';

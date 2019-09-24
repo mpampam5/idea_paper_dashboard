@@ -43,7 +43,7 @@
 
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" id="navbar">
   <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center" >
-    <a href="<?=site_url("dashboard")?>" class="back-title"><i class="fa fa-arrow-left"></i></a>
+    <a href="<?=site_url("dashboard")?>" class="back-title"><i class="ti-arrow-left"></i></a>
     <h5 class="module-title" style="font-size:20px">
       TOP UP
     </h5>

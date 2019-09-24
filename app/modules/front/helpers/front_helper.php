@@ -65,7 +65,7 @@ function balance()
 {
 
   $topup = _cek_topup();
-  $withdraw = 0;
+  $withdraw = _cek_withdraw();
   $total = $topup-$withdraw;
   return $total;
 }
@@ -78,6 +78,21 @@ function _cek_topup()
                                 SUM(nominal) AS nominal,
                                 status")
                       ->from("trans_person_deposit")
+                      ->where("id_person",sess('id_person'))
+                      ->where("status","success")
+                      ->get()
+                      ->row();
+  return $qry->nominal;
+}
+
+function _cek_withdraw()
+{
+  $ci=& get_instance();
+  $qry = $ci->db->select("id_trans_withdraw,
+                          id_person,
+                          SUM(nominal) AS nominal,
+                          status")
+                      ->from("trans_person_withdraw")
                       ->where("id_person",sess('id_person'))
                       ->where("status","success")
                       ->get()
