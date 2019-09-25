@@ -60,6 +60,8 @@ $route['sign-in-action'] = 'front/login/login/action';
 
 $route['logout'] = 'front/login/login/logout';
 
+$route['signup'] = 'front/register/register';
+
 $route['dashboard'] = 'front/dashboard';
 
 $route['topup'] = 'front/topup';

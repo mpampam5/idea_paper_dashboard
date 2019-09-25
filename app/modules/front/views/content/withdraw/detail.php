@@ -50,7 +50,7 @@
           <?php endif; ?>
 
           <?php if ($row->status == "success"): ?>
-            Permintaan anda telah di proses.
+            Permintaan anda telah di proses dan dana withdraw telah di transfer ke rekening anda.
           <?php endif; ?>
 
         </div>
