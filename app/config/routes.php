@@ -53,6 +53,9 @@ $route['default_controller'] = 'front/login/login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['member-register/jsonkabupaten'] = 'front/register/register/kabupaten';
+$route['member-register/jsonkecamatan'] = 'front/register/register/kecamatan';
+$route['member-register/jsonkelurahan'] = 'front/register/register/kelurahan';
 
 $route['mem-panel'] = 'front/login/login';
 
@@ -61,6 +64,10 @@ $route['sign-in-action'] = 'front/login/login/action';
 $route['logout'] = 'front/login/login/logout';
 
 $route['signup'] = 'front/register/register';
+
+$route['signup-captcha'] = 'front/register/register/refresh_captcha';
+
+$route['signup/action'] = 'front/register/register/action';
 
 $route['dashboard'] = 'front/dashboard';
 

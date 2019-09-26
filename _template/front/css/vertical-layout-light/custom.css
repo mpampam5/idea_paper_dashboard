@@ -502,3 +502,10 @@ ul.list-withdraw li span.status{
 .modal .modal-dialog .modal-content .modal-body{
   padding: 20px 20px;
 }
+
+
+/* signup title */
+h6.signup-title{
+  width: 100%;
+  padding-bottom: 5px;
+}
