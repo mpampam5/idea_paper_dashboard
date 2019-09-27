@@ -163,7 +163,7 @@ function action()
                                 "alamat"        => $alamat,
                                 "is_delete" => "0",
                                 "is_verifikasi" => "0",
-                                "created"       => date("Y-m-d h:i:s"),
+                                "created"       => date("Y-m-d H:i:s"),
                             ];
           // insert member
           $this->model->get_insert("tb_person",$insert_member);
@@ -187,7 +187,7 @@ function action()
                           "username"     =>  $username,
                           "password"     =>  pass_encrypt($token,$password),
                           "token"        =>  $token,
-                          "created"      =>  date("Y-m-d h:i:s")
+                          "created"      =>  date("Y-m-d H:i:s")
                         ];
           // insert data auth
           $this->model->get_insert("tb_auth",$data_akun);

@@ -83,8 +83,8 @@ class Topup extends MY_Controller{
       $this->form_validation->set_error_delimiters('<label class="error mt-2 text-danger">','</label>');
 
       if ($this->form_validation->run()) {
-        $created = date("Y-m-d h:i:s");// pendefinisian tanggal awal
-        $time_expire = date('Y-m-d h:i:s', strtotime('+1 days', strtotime($created))); //operasi penjumlahan tanggal sebanyak 6 hari
+        $created = date("Y-m-d H:i:s");// pendefinisian tanggal awal
+        $time_expire = date('Y-m-d H:i:s', strtotime('+1 days', strtotime($created))); //operasi penjumlahan tanggal sebanyak 6 hari
         // random num
         $x = 3;
         $randomNum = substr(str_shuffle("1234567"), 0, $x);

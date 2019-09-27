@@ -64,10 +64,13 @@
 
     <div class="main-panel" id="main-panel">
       <div class="content-wrapper">
-        <p class="alert alert-info" style="padding:5px;text-align:justify;font-size:13px;"><b>Perhatian!</b> Withdraw akan mengurangi saldo anda, walaupun dalam status proses.</p>
-        <ul class="list-withdraw">
+        <p class="text-info" style="padding:5px;text-align:justify;font-size:12px;"><b>Perhatian!</b> Withdraw akan mengurangi saldo anda, walaupun dalam status proses.</p>
+        <ul class="list-withdraw"><?php if ($cek_row->num_rows() > 0): ?>
           <div id="list-withdraw"></div>
           <div id="load_data_message"></div>
+          <?php else: ?>
+            <p class="text-center" style="margin-top:50%;font-style:italic"> Anda belum melakukan Withdraw</p>
+        <?php endif; ?>
         </ul>
       </div>
 

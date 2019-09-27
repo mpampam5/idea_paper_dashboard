@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Withdraw_model extends CI_Model{
-  function fetch_data_json($limit, $start)
+  function fetch_data_json($limit="", $start="")
 	{
 
 		$this->db->select("trans_person_withdraw.id_trans_withdraw,

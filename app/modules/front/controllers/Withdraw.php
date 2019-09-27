@@ -14,7 +14,8 @@ class Withdraw extends MY_Controller{
   function index()
   {
     $this->template->set_title("WITHDRAW");
-    $this->template->view("content/withdraw/index",array());
+    $data['cek_row'] = $this->model->fetch_data_json();
+    $this->template->view("content/withdraw/index",$data);
   }
 
 
@@ -36,7 +37,7 @@ class Withdraw extends MY_Controller{
   				$output .= '<li class="list-withdraw">
                           <a href="'.site_url("withdraw-detail/".enc_uri($row->id_trans_withdraw)."/".$row->kode_transaksi).'">
                               <span class="nominal">Rp. '.format_rupiah($row->nominal).'</span>
-                              <span class="date"> <i class="ti-calendar"></i> '.date('d/m/Y',strtotime($row->created)).' #'.$row->kode_transaksi.'</span>
+                              <span class="date"> <i class="ti-calendar"></i> '.date('d/m/Y H:i',strtotime($row->created)).' <b>#'.$row->kode_transaksi.'</b></span>
                           </a>
                           <span class="status badge badge-pill '.$status.'">'.$row->status.'</span>
                         </li>
@@ -69,7 +70,7 @@ class Withdraw extends MY_Controller{
           $data = array("id_person" => sess('id_person'),
                         "kode_transaksi" => $this->_kode(),
                         "nominal" => $this->input->post("nominal",true),
-                        "created" =>  date("Y-m-d h:i:s"),
+                        "created" =>  date("Y-m-d H:i:s"),
                       );
         $this->model->get_insert("trans_person_withdraw",$data);
         $last_id = $this->db->insert_id();
