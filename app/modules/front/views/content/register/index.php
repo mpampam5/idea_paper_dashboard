@@ -44,8 +44,10 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left px-2 px-sm-5">
               <h4 class="mt-4 mb-2 text-center">DAFTAR</h4>
+
+              <div id="alert"></div>
               <!-- <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6> -->
-              <form class="pt-3" action="<?=$action?>" id="form" autocomplete="off">
+              <form class="pt-3" action="<?=$action?>" id="form" autocomplete="on">
 
 
                 <div class="form-group">
@@ -57,7 +59,7 @@
                 </div>
 
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Email">
+                  <input type="text" class="form-control form-control-sm" id="email" name="email" placeholder="Email">
                 </div>
 
                 <div class="form-group">
@@ -70,6 +72,15 @@
 
                 <div class="form-group">
                   <input type="text" class="form-control-sm form-control" data-provide="datepicker" id="tgl_lahir" name="tgl_lahir" placeholder="Tanggal Lahir">
+                </div>
+
+                <div class="form-group">
+                  <select class="form-control-sm form-control" name="pekerjaan" id="pekerjaan">
+                    <option value="">-- Pilih Pekerjaan --</option>
+                    <?php foreach ($pekerjaan as $kerja): ?>
+                      <option value="<?=$kerja->pekerjaan?>"><?=$kerja->pekerjaan?></option>
+                    <?php endforeach; ?>
+                  </select>
                 </div>
 
                 <div class="form-group">
@@ -150,7 +161,7 @@
 
 
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-sm" id="password" placeholder="Password">
+                  <input type="password" class="form-control form-control-sm" id="password" name="password" placeholder="Password">
                 </div>
 
                 <div class="form-group">
@@ -241,33 +252,45 @@
         processData     :false,
         success:function(json){
           if (json.success==true) {
-            $("#form")[0].reset();
-            $("#form").find('.text-danger').remove();
-            $("html, body").animate({ scrollTop: 0 }, "slow");
-            $("#submit").prop('disabled',true)
-                        .html('Registrasi');
-            $('#alert').hide().fadeIn(1000).html(`<div class="row alert-show text-center">
-                                                    <div class="col-sm-12">
-                                                    <div class="alert alert-success" role="alert">
-                                                      `+json.alert+`
-                                                    </div>
-                                                    </div>
-                                                  </div>`);
-            $('.form-group').removeClass('.has-error')
-                            .removeClass('.has-success');
-              $('.alert-show').delay(5000).show(10, function(){
-                $('.alert-show').fadeOut(10000, function(){
-                  $('.alert-show').remove();
-                });
-              })
+            if (json.captcha_status==true) {
+              $("#form")[0].reset();
+              $("#form").find('.text-danger').remove();
+              $("html, body").animate({ scrollTop: 0 }, "slow");
+              $("#submit").prop('disabled',false)
+                          .html('Daftar');
+              $('#alert').hide().fadeIn(1000).html(`<div class="row alert-show text-center">
+                                                      <div class="col-sm-12">
+                                                      <div class="alert alert-success" role="alert">
+                                                        `+json.alert+`
+                                                      </div>
+                                                      </div>
+                                                    </div>`);
+              $('.form-group').removeClass('.has-error')
+                              .removeClass('.has-success');
+                $('.alert-show').delay(5000).show(10, function(){
+                  $('.alert-show').fadeOut(10000, function(){
+                    $('.alert-show').remove();
+                    $.get('<?php echo base_url().'signup-captcha'; ?>', function(data){
+                        $('#captImg').hide().fadeIn(600).html(data);
+                    });
+                  });
+                })
+            }else {
+              $.get('<?php echo base_url().'signup-captcha'; ?>', function(data){
+                  $('#captImg').hide().fadeIn(600).html(data);
+              });
+              $("#captcha").val("");
+              $("#captcha")
+              .closest('.form-group')
+              .find('.text-danger').remove();
+              $("#captcha").after(json.alert_captcha);
+              $("#submit").prop('disabled',false)
+                          .html('Daftar');
+            }
 
           }else {
             $("#submit").prop('disabled',false)
                         .html('Daftar');
-            $.get('<?php echo base_url().'signup-captcha'; ?>', function(data){
-                $('#captImg').hide().fadeIn(600).html(data);
-            });
-            $("#captcha").val("");
             $.each(json.alert, function(key, value) {
                 var element = $('#' + key);
                 $(element)
