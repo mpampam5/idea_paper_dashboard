@@ -65,8 +65,12 @@
     <div class="main-panel" id="main-panel">
       <div class="content-wrapper">
         <ul class="list-topup">
-          <div id="list-topup"></div>
-          <div id="load_data_message"></div>
+          <?php if ($cek_row->num_rows() > 0): ?>
+            <div id="list-topup"></div>
+            <div id="load_data_message"></div>
+            <?php else: ?>
+              <p class="text-center" style="margin-top:50%;font-style:italic"> Anda belum melakukan Top up</p>
+          <?php endif; ?>
         </ul>
       </div>
 

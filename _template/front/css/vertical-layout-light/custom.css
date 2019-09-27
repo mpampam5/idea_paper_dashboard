@@ -377,8 +377,9 @@ ul.list-topup li a span.nominal{
 } */
 
 ul.list-topup li a span.bank{
-  color: #0061a7;
+  color: #414141;
   line-height: 14px;
+  font-size: 13px;
   display: block;
 }
 

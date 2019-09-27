@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Topup_model extends CI_Model{
 
 
-  function fetch_data_json($limit, $start)
+  function fetch_data_json($limit="", $start="")
 	{
 
 		$this->db->select("trans_person_deposit.id_trans_person_deposit AS id_trans_person_deposit,

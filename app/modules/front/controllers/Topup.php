@@ -13,7 +13,8 @@ class Topup extends MY_Controller{
   function index()
   {
       $this->template->set_title("TOP UP");
-      $this->template->view("content/topup/index",array());
+      $data['cek_row'] = $this->model->fetch_data_json();
+      $this->template->view("content/topup/index",$data);
   }
 
   function json()
@@ -40,8 +41,8 @@ class Topup extends MY_Controller{
   				$output .= '<li>
                         <a href="'.site_url("topup-detail/$row->id_trans_person_deposit/$row->kode_transaksi").'">
                             <span class="nominal"> Rp. '.format_rupiah($row->nominal).'</span>
-                            <span class="bank"> Transfer Ke Bank '.$row->inisial_bank.'</span>
-                            <span class="date"> <i class="fa fa-calendar"></i> '.date('d/m/Y H:i',strtotime($row->created)).' #'.$row->kode_transaksi.'</span>
+                            <span class="bank"><i class="ti-import"></i> TRANSFER KE BANK '.$row->inisial_bank.'</span>
+                            <span class="date"> <i class="ti-calendar"></i> '.date('d/m/Y H:i',strtotime($row->created)).' <b>#'.$row->kode_transaksi.'</b></span>
                         </a>
                         <span class="status badge badge-pill '.$status.'">'.$row->status.'</span>
                       </li>
