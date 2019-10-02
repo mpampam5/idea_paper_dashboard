@@ -39,7 +39,7 @@ class Topup extends MY_Controller{
           }
 
   				$output .= '<li>
-                        <a href="'.site_url("topup-detail/$row->id_trans_person_deposit/$row->kode_transaksi").'">
+                        <a href="'.site_url("topup-detail/".enc_uri($row->id_trans_person_deposit)."/$row->kode_transaksi").'">
                             <span class="nominal"> Rp. '.format_rupiah($row->nominal).'</span>
                             <span class="bank"><i class="ti-import"></i> TRANSFER KE BANK '.$row->inisial_bank.'</span>
                             <span class="date"> <i class="ti-calendar"></i> '.date('d/m/Y H:i',strtotime($row->created)).' <b>#'.$row->kode_transaksi.'</b></span>
@@ -100,7 +100,7 @@ class Topup extends MY_Controller{
                       );
         $this->model->get_insert("trans_person_deposit",$data);
         $last_id = $this->db->insert_id();
-        $json['url'] = site_url("topup-detail/$last_id/".$data['kode_transaksi']);
+        $json['url'] = site_url("topup-detail/".enc_uri($last_id)."/".$data['kode_transaksi']);
         $json['alert'] = "Top up successful";
         $json['success'] =  true;
       }else {
@@ -121,13 +121,16 @@ class Topup extends MY_Controller{
       if (in_array($konfirmasi,$cek)) {
           if ($konfirmasi=="delete") {
               $json['url'] = site_url("topup");
-              $keterangan = "keterangan = is delete from user  | user_approved =".sess('id_person').",".profile("nama")." | waktu = ".date('Y-m-d h:i:s');
+              $keterangan =  array('user_approved' => profile('id_register')."-".profile("nama"),
+                                   'time_approved' => date('Y-m-d h:i:s'),
+                                   'description' => "is delete from user panel"
+                                 );
               $json['status'] = "delete";
           }else {
             $keterangan = null;
             $json['status'] = "approved";
           }
-          if ($this->model->get_update('trans_person_deposit',['status'=>"$konfirmasi","keterangan"=>$keterangan],["id_trans_person_deposit"=>$id])) {
+          if ($this->model->get_update('trans_person_deposit',['status'=>"$konfirmasi","keterangan"=>json_encode($keterangan)],["id_trans_person_deposit"=>dec_uri($id)])) {
               $json['success'] = "success";
               $json['alert']   = 'success';
           }

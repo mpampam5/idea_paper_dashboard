@@ -172,12 +172,18 @@
         </div> -->
         <!-- content-wrapper ends -->
 
-
-        <div class="toolbar-footer">
-            <a href="features.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/cs.png" alt="" title=""></a>
-            <a href="features.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/faq.png" alt="" title=""></a>
-            <a href="features.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/blogg.png" alt="" title=""></a>
-            <a href="features.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/blogg.png" alt="" title=""></a>
+<?php
+  $mobile=$this->agent->is_mobile();
+  if($mobile){
+    $url_wa = "https://wa.me/+6285288882994/?text=MEMBER IDEA PAPER ".profile('id_register')." - ".strtoupper(profile('nama'));
+  }else {
+    $url_wa = "https://web.whatsapp.com/send?phone=+6289699935552&amp;text=MEMBER IDEA PAPER ".profile('id_register')." - ".strtoupper(profile('nama'));
+  }
+ ?>
+        <div class="toolbar-footer text-center" id="toolbar-footer">
+            <a href="<?=$url_wa?>" target="_blank"><img src="<?=base_url()?>_template/front/icon/cs.png" alt="" title=""></a>
+            <a href="#" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/blogg.png" alt="" title=""></a>
+            <a href="#" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/faq.png" alt="" title=""></a>
         </div>
 
 
@@ -185,3 +191,17 @@
 <!-- main-panel ends -->
 </div>
 <!-- page-body-wrapper ends -->
+
+
+<script type="text/javascript">
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+var currentScrollPos = window.pageYOffset;
+if (currentScrollPos > prevScrollpos) {
+  document.getElementById("toolbar-footer").style.bottom = "0";
+} else {
+  document.getElementById("toolbar-footer").style.bottom = "-150px";
+}
+currentScrollPos = prevScrollpos;
+}
+</script>

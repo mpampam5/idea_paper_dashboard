@@ -105,15 +105,15 @@
         <?php if ($row->status == "pending"): ?>
           <p style="font-size:11px" class="text-center mt-2">Silahkan menekan tombol konfirmasi setelah melakukan pembayaran, untuk segera di proses.</p>
             <div class="tombol-detail-topup mt-4 text-center">
-              <a href="<?=site_url("topup-konfirmasi/".$row->id_trans_person_deposit."/delete")?>" id="konfirmasi" data-header="Yakin ingin menghapus?" data-button="Hapus" class="btn-cancel-topup btn btn-sm btn-danger"> Hapus</a>
-              <a href="<?=site_url("topup-konfirmasi/".$row->id_trans_person_deposit."/cancel")?>" data-header="Yakin ingin membatalkan transaksi?" id="konfirmasi" data-button="batalkan" class="btn-cancel-topup btn btn-sm btn-warning text-white"> Batalkan</a>
-              <a href="<?=site_url("topup-konfirmasi/".$row->id_trans_person_deposit."/proses")?>" id="konfirmasi" data-header="Sudah Melakukan Pembayaran?" data-button="konfirmasi" class="btn-cancel-topup btn btn-sm btn-primary"> Konfirmasi</a>
+              <a href="<?=site_url("topup-konfirmasi/".enc_uri($row->id_trans_person_deposit)."/delete")?>" id="konfirmasi" data-header="Yakin ingin menghapus?" data-button="Hapus" class="btn-cancel-topup btn btn-sm btn-danger"> Hapus</a>
+              <a href="<?=site_url("topup-konfirmasi/".enc_uri($row->id_trans_person_deposit)."/cancel")?>" data-header="Yakin ingin membatalkan transaksi?" id="konfirmasi" data-button="batalkan" class="btn-cancel-topup btn btn-sm btn-warning text-white"> Batalkan</a>
+              <a href="<?=site_url("topup-konfirmasi/".enc_uri($row->id_trans_person_deposit)."/proses")?>" id="konfirmasi" data-header="Sudah Melakukan Pembayaran?" data-button="konfirmasi" class="btn-cancel-topup btn btn-sm btn-primary"> Konfirmasi</a>
             </div>
         <?php endif; ?>
 
         <?php if ($row->status=="expire" || $row->status=="cancel"): ?>
           <div class="tombol-detail-topup mt-4 text-center">
-            <a href="<?=site_url("topup-konfirmasi/".$row->id_trans_person_deposit."/delete")?>" id="konfirmasi" data-header="Yakin ingin menghapus?" data-button="Hapus" class="btn-cancel-topup btn btn-sm btn-danger"> Hapus</a>
+            <a href="<?=site_url("topup-konfirmasi/".enc_uri($row->id_trans_person_deposit)."/delete")?>" id="konfirmasi" data-header="Yakin ingin menghapus?" data-button="Hapus" class="btn-cancel-topup btn btn-sm btn-danger"> Hapus</a>
           </div>
         <?php endif; ?>
 

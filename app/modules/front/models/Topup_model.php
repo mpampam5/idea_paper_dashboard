@@ -30,7 +30,7 @@ class Topup_model extends CI_Model{
     {
 
       $qry = $this->db->get_where("trans_person_deposit",[
-                                                          "id_trans_person_deposit"=>$id,
+                                                          "id_trans_person_deposit"=>dec_uri($id),
                                                           "kode_transaksi"=>$kode_transaksi,
                                                           "id_person"=>sess('id_person'),
                                                         ])->row();
@@ -57,7 +57,7 @@ class Topup_model extends CI_Model{
                         ->from("trans_person_deposit")
                         ->join("config_rekening","config_rekening.id_rekening = trans_person_deposit.metode_pembayaran")
                         ->join("ref_bank","ref_bank.id_bank = config_rekening.id_bank")
-                        ->where("trans_person_deposit.id_trans_person_deposit",$id)
+                        ->where("trans_person_deposit.id_trans_person_deposit",dec_uri($id))
                         ->where("trans_person_deposit.kode_transaksi",$kode_transaksi)
                         ->where("trans_person_deposit.id_person",sess('id_person'))
                         ->get();

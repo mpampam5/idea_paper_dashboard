@@ -244,19 +244,22 @@ touch-action: pan-y;
   /* padding-left:30px;
   padding-right: 30px; */
   position: fixed;
-  bottom: 0px;
+  bottom: -150px;
   width: 100%;
   background: #ffffff;
-  box-shadow: 0 1px 10px rgba(0,0,0,.1);
+  -webkit-box-shadow: -2px 9px 13px 4px rgba(0,0,0,0.87);
+  -moz-box-shadow: -2px 9px 13px 4px rgba(0,0,0,0.87);
+  box-shadow: -2px 9px 13px 4px rgba(0,0,0,0.87);
   z-index: 10;
+  transition: bottom 0.5s;
 }
 
 .toolbar-footer a{
-  display: block;
+  /* display: block; */
   width: 20.4%;
   margin: 1.1%;
-  padding: 1% 0;
-  float: left;
+  padding: 1% 7% 1% 7%;;
+  /* float: left; */
   height: auto;
   text-align: center;
   background-color: none;
@@ -268,8 +271,8 @@ touch-action: pan-y;
 
 
 .toolbar-footer a img {
-    display: block;
-    max-width: 34%;
+    /* display: block; */
+    max-width: 30px;
     margin: 5px auto 5px auto;
     text-align: center;
 }
