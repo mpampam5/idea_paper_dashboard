@@ -94,3 +94,7 @@ $route['withdraw-add-action'] = 'front/withdraw/add_action';
 $route['withdraw-konfirmasi/(:any)/(:any)'] = 'front/withdraw/konfirmasi/$1/$2';
 
 $route['withdraw-detail/(:any)/(:any)'] = 'front/withdraw/detail/$1/$2';
+
+$route['anggota'] = 'front/anggota';
+
+$route['anggota-add'] = 'front/anggota/add';

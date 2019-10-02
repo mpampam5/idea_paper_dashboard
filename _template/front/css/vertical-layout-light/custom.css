@@ -513,3 +513,63 @@ h6.signup-title{
   width: 100%;
   padding-bottom: 5px;
 }
+
+
+/* //Anggota */
+ul.list-anggota{
+  list-style-type: none;
+  padding-left: 0!important;
+}
+
+ul.list-anggota li{
+  width: 100%;
+  margin-top: 5px;
+  padding: 4px 3px 4px 3px;
+  /* border-bottom: 1px solid #9f9f9f; */
+  box-shadow: 1px 1px 3px #dadada;
+}
+
+ul.list-anggota li a{
+  text-decoration: none;
+  width: 100%;
+  /* position: relative; */
+}
+
+ul.list-anggota li a span.user-icon{
+  font-size: 50px;
+  padding: 2px;
+  color: #717171
+  /* border: 1px solid #7e7e7e; */
+}
+
+ul.list-anggota li a .title-anggota{
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 75ch;
+  color: #717171;
+  display: block;
+}
+
+ul.list-anggota li a .mem-reg{
+  font-size: 12px;
+  font-weight: bold;
+  color: #717171;
+  display: block;
+  line-height: 15px;
+}
+
+ul.list-anggota li a .waktu{
+  font-size: 9px;
+  font-weight: bold;
+  color: #009cff;
+  display: block;
+  line-height: 20px;
+}
+
+ul.list-anggota li .text-status{
+  font-size:8px;
+}

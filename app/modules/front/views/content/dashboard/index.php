@@ -148,7 +148,7 @@
                 </span>
               </div>
 
-              <a href="http://localhost/idea_paper_dashboard/dashboard/dashboard/about.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/c_users.png" alt="" title=""><span>ANGGOTA</span></a>
+              <a href="<?=site_url("anggota")?>" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/c_users.png" alt="" title=""><span>ANGGOTA</span></a>
             </div>
 
             <div class=" toolbar-icon">
