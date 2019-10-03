@@ -66,7 +66,9 @@ function balance()
 
   $topup = _cek_topup();
   $withdraw = _cek_withdraw();
-  $total = $topup-$withdraw;
+  $biaya_sponsor = _cek_biaya_sponsor();
+  $komisi_sponsor = _cek_komisi_sponsor();
+  $total = $topup + $komisi_sponsor - $withdraw - $biaya_sponsor;
   return $total;
 }
 
@@ -98,4 +100,31 @@ function _cek_withdraw()
                       ->get()
                       ->row();
   return $qry->nominal;
+}
+
+function _cek_biaya_sponsor()
+{
+  $ci=& get_instance();
+  $qry = $ci->db->select("trans_person_sponsor,
+                          id_person_sponsor,
+                          SUM(biaya_registrasi) AS biaya_registrasi")
+                      ->from("trans_person_sponsor")
+                      ->where("id_person_sponsor",sess('id_person'))
+                      ->get()
+                      ->row();
+  return $qry->biaya_registrasi;
+}
+
+
+function _cek_komisi_sponsor()
+{
+  $ci=& get_instance();
+  $qry = $ci->db->select("trans_person_sponsor,
+                          id_person_sponsor,
+                          SUM(bonus_sponsor) AS bonus_sponsor")
+                      ->from("trans_person_sponsor")
+                      ->where("id_person_sponsor",sess('id_person'))
+                      ->get()
+                      ->row();
+  return $qry->bonus_sponsor;
 }

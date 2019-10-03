@@ -66,42 +66,12 @@
       <div class="content-wrapper">
         <!-- <p class="text-info" style="padding:5px;text-align:justify;font-size:12px;"><b>Perhatian!</b> Penambahan member akan mengurangi saldo anda walau pun dalam status proses. harga registrasi member Rp.200.000</p> -->
         <ul class="list-anggota">
-          <li>
-              <div class="row">
-                <div class="col-2 icons">
-                  <a href="#">
-                    <span class="ti-user user-icon"></span>
-                  </a>
-                </div>
-
-                <div class="col-10 content">
-                  <a href="#">
-                    <span class="title-anggota">MUHAMMAD IRFAN IBNU MUHAMMAD IRFAN IBNU</span>
-                    <span class="mem-reg">#MEM1011190001&nbsp;<span class="text-status text-success"> TERVERIFIKASI</span></span>
-                    <span class="waktu">BERGABUNG 10/11/2019 14:00</span>
-                  </a>
-                </div>
-              </div>
-          </li>
-
-
-          <li>
-              <div class="row">
-                <div class="col-2 icons">
-                  <a href="#">
-                    <span class="ti-user user-icon"></span>
-                  </a>
-                </div>
-
-                <div class="col-10 content">
-                  <a href="#">
-                    <span class="title-anggota">ANDI FASAYA</span>
-                    <span class="mem-reg">#MEM1011190002&nbsp;<span class="text-status text-info"> MENUNGGU VERIFIKASI</span></span>
-                    <span class="waktu">BERGABUNG 10/11/2019 14:00</span>
-                  </a>
-                </div>
-              </div>
-          </li>
+          <?php if ($cek_row->num_rows() > 0): ?>
+            <div id="list-anggota"></div>
+            <div id="load_data_message"></div>
+            <?php else: ?>
+              <p class="text-center" style="margin-top:50%;font-style:italic"> Anda belum melakukan Top up</p>
+          <?php endif; ?>
         </ul>
       </div>
 
@@ -113,6 +83,98 @@
 
 
   <script type="text/javascript">
+  $(document).ready(function(){
+
+    var limit = 10;
+    var start = 0;
+    var action = 'inactive';
+
+    function lazzy_loader(limit)
+      {
+        var output = '';
+        for(var count=0; count<6; count++)
+        {
+          output += `<li>
+                          <div class="row">
+                            <div class="col-2 icons">
+                              <a href="#">
+                                <span style="width:60px!important;margin:2px;height:98%;" class="content-placeholder">&nbsp;</span>
+                              </a>
+                            </div>
+
+                            <div class="col-10 content">
+                              <a href="#">
+                              <span class="title-anggota content-placeholder" style="width:98%;margin:2px;">&nbsp;</span>
+                              <span class="mem-reg content-placeholder" style="width:98%;margin:2px;">&nbsp;</span>
+                              <span class="waktu content-placeholder" style="width:98%;margin:2px;">&nbsp;</span>
+                              <span class="text-status content-placeholder" style="width:98%;margin:2px;">&nbsp;</span>
+                              </a>
+                            </div>
+                          </div>
+                      </li>`;
+        }
+        $('#load_data_message').html(output);
+      }
+
+
+      lazzy_loader(limit);
+
+      function load_data(limit, start)
+      {
+        $.ajax({
+          url:"<?php echo base_url(); ?>anggota-json",
+          method:"POST",
+          data:{limit:limit, start:start},
+          cache: false,
+          success:function(data)
+          {
+            if(data == '')
+            {
+              $('#load_data_message').html('');
+              action = 'active';
+            }
+            else
+            {
+              $('#list-anggota').append(data);
+              $('#load_data_message').html("");
+              action = 'inactive';
+            }
+          }
+        })
+      }
+
+      if(action == 'inactive')
+      {
+        action = 'active';
+        load_data(limit, start);
+      }
+
+      $(window).scroll(function(){
+        if($(window).scrollTop() + $(window).height() > $("#list-anggota").height() && action == 'inactive')
+        {
+          lazzy_loader(limit);
+          action = 'active';
+          start = start + limit;
+          setTimeout(function(){
+            load_data(limit, start);
+          }, 1000);
+        }
+      });
+
+      $(document).on("click","#reload-list",function(e){
+        location.href="<?=site_url("anggota")?>";
+        // $('#list-topup').html("");
+        // lazzy_loader(limit = 10);
+        // action = 'active';
+        // start = start;
+        // setTimeout(function(){
+        //   load_data(limit = 10, start = 0);
+        // }, 1000);
+      });
+
+
+  });
+
   $(document).on("click","#anggota-add",function(e){
     e.preventDefault();
     $('.modal-dialog').removeClass('modal-sm')

@@ -97,4 +97,8 @@ $route['withdraw-detail/(:any)/(:any)'] = 'front/withdraw/detail/$1/$2';
 
 $route['anggota'] = 'front/anggota';
 
+$route['anggota-json'] = 'front/anggota/json';
+
 $route['anggota-add'] = 'front/anggota/add';
+
+$route['anggota-add-action'] = 'front/anggota/add_action';

@@ -535,8 +535,13 @@ ul.list-anggota li a{
   /* position: relative; */
 }
 
+
+ul.list-anggota li .content{
+  padding-left: 20px;
+}
+
 ul.list-anggota li a span.user-icon{
-  font-size: 50px;
+  font-size: 55px;
   padding: 2px;
   color: #717171
   /* border: 1px solid #7e7e7e; */
@@ -562,14 +567,17 @@ ul.list-anggota li a .mem-reg{
   line-height: 15px;
 }
 
+ul.list-anggota li .text-status{
+  font-size:9px;
+  display: block;
+  line-height: 15px;
+  font-weight: bold;
+}
+
 ul.list-anggota li a .waktu{
   font-size: 9px;
   font-weight: bold;
   color: #009cff;
   display: block;
-  line-height: 20px;
-}
-
-ul.list-anggota li .text-status{
-  font-size:8px;
+  line-height: 10px;
 }

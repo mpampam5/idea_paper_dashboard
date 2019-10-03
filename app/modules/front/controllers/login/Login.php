@@ -44,6 +44,7 @@ function index()
 
           $where = array("username" => $username,
                           "is_delete" => '0',
+                          "is_active" => '1',
                           "is_verifikasi" => "1");
 
           $query = $this->db->select("tb_auth.id_auth,
