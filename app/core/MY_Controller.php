@@ -22,10 +22,14 @@ class MY_Controller extends CI_Controller{
     }
   }
 
-  function index()
-  {
 
+  function maintenance()
+  {
+    $this->template->set_title("MAINTENANCE");
+    $this->template->view("maintenance",array());
   }
+
+
 
 
 

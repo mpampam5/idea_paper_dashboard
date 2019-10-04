@@ -44,8 +44,7 @@ function index()
 
           $where = array("username" => $username,
                           "is_delete" => '0',
-                          "is_active" => '1',
-                          "is_verifikasi" => "1");
+                          "is_active" => '1');
 
           $query = $this->db->select("tb_auth.id_auth,
                                       tb_auth.id_person,
@@ -72,7 +71,8 @@ function index()
                 $this->session->set_userdata($session);
 
                 $json['valid'] = true;
-                $json['url'] = site_url("front/dashboard");
+                $json['url'] = site_url("dashboard");
+
               }else {
                 $json['alert'] = "Username Atau Password Salah";
               }

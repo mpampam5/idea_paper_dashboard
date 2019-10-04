@@ -8,6 +8,9 @@ class Withdraw extends MY_Controller{
   public function __construct()
   {
     parent::__construct();
+    if (profile("is_complate")=="0") {
+        redirect("formulir","refresh");
+    }
     $this->load->model("Withdraw_model","model");
   }
 

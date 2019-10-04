@@ -34,8 +34,8 @@
           </div>
           <!-- <p class="w-75 mx-auto mb-3">Bureau Oberhaeuser is a design bureau focused on Information- and Interface Design. </p> -->
           <div class="d-flex justify-content-center">
-            <a href="<?=site_url("topup")?>" class="btn btn-primary btn-sm mr-1">TOP UP</a>
-            <a href="<?=site_url("withdraw")?>" class="btn btn-primary btn-sm">WITHDRAW</a>
+            <a href="<?=site_url("topup")?>" class="btn btn-outline-primary btn-sm mr-1">TOP UP</a>
+            <a href="<?=site_url("withdraw")?>" class="btn btn-outline-primary btn-sm">WITHDRAW</a>
           </div>
         </div>
         <!-- <button class="btn btn-primary btn-block mb-2">Preview</button> -->
@@ -100,11 +100,11 @@
 										<div class="ml-sm-3 ml-md-0 ml-xl-3 mt-2 mt-sm-0 mt-md-2 mt-xl-0">
 											<h6 class="mb-0"><?=strtoupper(profile('nama'))?></h6>
 											<p class="text-muted mb-1">ID.REG : <?=profile('id_register')?></p>
-											<p class="mb-0 text-primary font-weight-bold">Rp.<?=format_rupiah(balance())?></p>
+											<p class="mb-0 text-primary font-weight-bold">Saldo Rp.<?=format_rupiah(balance())?></p>
 										</div>
 
                     <div class="top-up">
-                      <a href="<?=site_url("topup")?>" id="topup" class="btn btn-primary btn-sm" >TOP UP</a>
+                      <a href="<?=site_url("topup")?>" id="topup" class="btn btn-outline-primary btn-sm" >TOP UP</a>
                     </div>
 									</div>
 
@@ -120,9 +120,9 @@
                 </span>
               </div>
 
-              <a href="features.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/tradings.png" alt="" title=""><span>TRADING</span></a>
-              <a href="http://localhost/idea_paper_dashboard/dashboard/dashboard/about.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/project.png" alt="" title=""><span>PROJECT</span></a>
-              <a href="http://localhost/idea_paper_dashboard/dashboard/dashboard/about.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/ecommerse.png" alt="" title=""><span>MARKET PLACE</span></a>
+              <a href="<?=site_url("maintenance")?>" ><img src="<?=base_url()?>_template/front/icon/tradings.png" alt="" title=""><span>TRADING</span></a>
+              <a href="<?=site_url("maintenance")?>" ><img src="<?=base_url()?>_template/front/icon/project.png" alt="" title=""><span>PROJECT</span></a>
+              <a href="<?=site_url("maintenance")?>" ><img src="<?=base_url()?>_template/front/icon/ecommerse.png" alt="" title=""><span>MARKET PLACE</span></a>
             </div>
 
 
@@ -133,12 +133,12 @@
                 </span>
               </div>
 
-              <a href="http://localhost/idea_paper_dashboard/dashboard/dashboard/about.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/pulsa.png" alt="" title=""><span>PULSA</span></a>
-              <a href="features.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/pulsa-data.png" alt="" title=""><span>DATA INTERNET</span></a>
-              <a href="#" data-popup=".dynamic-popup" class="open-popup"><img src="<?=base_url()?>_template/front/icon/token-pln.png" alt="" title=""><span>TOKEN LISTRIK</span></a>
-              <a href="blog.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/bpjs.png" alt="" title=""><span>BPJS KESEHATAN</span></a>
-              <a href="contact.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/pdam.png" alt="" title=""><span>TAGIHAN PDAM</span></a>
-              <a href="photos.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/voucher-game.png" alt="" title=""><span>VOUCHER GAME</span></a>
+              <a href="<?=site_url("maintenance")?>" ><img src="<?=base_url()?>_template/front/icon/pulsa.png" alt="" title=""><span>PULSA</span></a>
+              <a href="<?=site_url("maintenance")?>" ><img src="<?=base_url()?>_template/front/icon/pulsa-data.png" alt="" title=""><span>DATA INTERNET</span></a>
+              <a href="<?=site_url("maintenance")?>" class="open-popup"><img src="<?=base_url()?>_template/front/icon/token-pln.png" alt="" title=""><span>TOKEN LISTRIK</span></a>
+              <a href="<?=site_url("maintenance")?>" ><img src="<?=base_url()?>_template/front/icon/bpjs.png" alt="" title=""><span>BPJS KESEHATAN</span></a>
+              <a href="<?=site_url("maintenance")?>" ><img src="<?=base_url()?>_template/front/icon/pdam.png" alt="" title=""><span>TAGIHAN PDAM</span></a>
+              <a href="<?=site_url("maintenance")?>" ><img src="<?=base_url()?>_template/front/icon/voucher-game.png" alt="" title=""><span>VOUCHER GAME</span></a>
             </div>
 
             <div class=" toolbar-icon">
@@ -148,7 +148,17 @@
                 </span>
               </div>
 
-              <a href="<?=site_url("anggota")?>" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/c_users.png" alt="" title=""><span>ANGGOTA</span></a>
+              <a href="<?=site_url("anggota")?>" ><img src="<?=base_url()?>_template/front/icon/c_users.png" alt="" title=""><span>ANGGOTA</span></a>
+            </div>
+
+            <div class=" toolbar-icon">
+              <div class="title-toolbar">
+                <span>
+                  Fitur Sosial
+                </span>
+              </div>
+
+              <a href="<?=site_url("maintenance")?>" ><img src="<?=base_url()?>_template/front/icon/social.png" alt="" title=""><span>SOSIAL</span></a>
             </div>
 
             <div class=" toolbar-icon">
@@ -158,9 +168,9 @@
                 </span>
               </div>
 
-              <a href="http://localhost/idea_paper_dashboard/dashboard/dashboard/about.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/ads.png" alt="" title=""><span>IKLAN SLIDE</span></a>
-              <a href="features.html" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/ads2.png" alt="" title=""><span>IKLAN SPLASH</span></a>
-              <a href="#" data-popup=".dynamic-popup" class="open-popup"><img src="<?=base_url()?>_template/front/icon/broadcast.png" alt="" title=""><span>IKLAN BROADCAST</span></a>
+              <a href="<?=site_url("maintenance")?>" ><img src="<?=base_url()?>_template/front/icon/ads.png" alt="" title=""><span>IKLAN SLIDE</span></a>
+              <a href="<?=site_url("maintenance")?>" ><img src="<?=base_url()?>_template/front/icon/ads2.png" alt="" title=""><span>IKLAN SPLASH</span></a>
+              <a href="<?=site_url("maintenance")?>" data-popup=".dynamic-popup" class="open-popup"><img src="<?=base_url()?>_template/front/icon/broadcast.png" alt="" title=""><span>IKLAN BROADCAST</span></a>
             </div>
 
             <div class="toolbar-container"></div>
@@ -182,8 +192,9 @@
  ?>
         <div class="toolbar-footer text-center" id="toolbar-footer">
             <a href="<?=$url_wa?>" target="_blank"><img src="<?=base_url()?>_template/front/icon/cs.png" alt="" title=""></a>
-            <a href="#" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/blogg.png" alt="" title=""></a>
-            <a href="#" data-view=".view-main"><img src="<?=base_url()?>_template/front/icon/faq.png" alt="" title=""></a>
+            <a href="#" ><img src="<?=base_url()?>_template/front/icon/akun.png" alt="" title=""></a>
+            <a href="#" ><img src="<?=base_url()?>_template/front/icon/transaksi.png" alt="" title=""></a>
+            <a href="#" ><img src="<?=base_url()?>_template/front/icon/faq.png" alt="" title=""></a>
         </div>
 
 

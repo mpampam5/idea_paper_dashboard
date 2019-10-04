@@ -69,7 +69,15 @@ $route['signup-captcha'] = 'front/register/register/refresh_captcha';
 
 $route['signup/action'] = 'front/register/register/action';
 
+$route['maintenance'] = 'front/dashboard/maintenance';
+
 $route['dashboard'] = 'front/dashboard';
+
+$route['formulir'] = 'front/formulir';
+
+$route['formulir/form/(:any)'] = 'front/formulir/form/$1';
+
+$route['formulir/form_act/(:any)'] = 'front/formulir/form_act/$1';
 
 $route['topup'] = 'front/topup';
 

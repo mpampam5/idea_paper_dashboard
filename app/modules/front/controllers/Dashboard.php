@@ -7,7 +7,9 @@ class Dashboard extends MY_Controller{
   public function __construct()
   {
     parent::__construct();
-
+    // if (profile("is_verifikasi")=="0") {
+    //     redirect("front/formulir","refresh");
+    // }
   }
 
   function index()

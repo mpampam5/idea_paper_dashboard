@@ -7,6 +7,9 @@ class Anggota extends MY_Controller{
   public function __construct()
   {
     parent::__construct();
+    if (profile("is_complate")=="0") {
+        redirect("formulir","refresh");
+    }
     $this->load->model("Anggota_model","model");
   }
 
@@ -93,8 +96,9 @@ class Anggota extends MY_Controller{
                               "telepon"       => $telepon,
                               "email"         => $email,
                               "is_delete"     => "0",
-                              "is_verifikasi" => "1",
+                              "is_verifikasi" => "0",
                               "is_active"     => "1",
+                              "is_complate"   => "0",
                               "created"       => date("Y-m-d H:i:s"),
                           ];
           // insert member

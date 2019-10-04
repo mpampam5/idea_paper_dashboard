@@ -163,6 +163,7 @@ function action()
                                 "alamat"        => $alamat,
                                 "is_delete" => "0",
                                 "is_verifikasi" => "0",
+                                "is_complate" => "0",
                                 "created"       => date("Y-m-d H:i:s"),
                             ];
           // insert member
