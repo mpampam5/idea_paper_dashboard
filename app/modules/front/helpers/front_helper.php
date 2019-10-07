@@ -148,3 +148,27 @@ function _cek_komisi_sponsor()
                       ->row();
   return $qry->bonus_sponsor;
 }
+
+
+function upload_file_personal($str,$file_name)
+{
+  $ci=& get_instance();
+  if ($str == "foto_personal") {
+    $dir = "foto";
+  }elseif ($str = "file_kk") {
+    $dir = "kk";
+  }elseif ($str=="file_ktp") {
+    $dir = "ktp";
+  }
+
+  $config['upload_path']    = "./_template/files/$dir/";
+  $config['allowed_types']  = 'jpg'; // file yang di perbolehkan
+  $config['max_size']       = 1024; // maksimal ukuran
+  $config['overwrite']      = true;
+  $config['file_name']      = $file_name;
+  $ci->load->library('upload', $config);
+
+  $ci->upload->do_upload("$str");
+
+  return true;
+}

@@ -581,3 +581,47 @@ ul.list-anggota li a .waktu{
   display: block;
   line-height: 10px;
 }
+
+
+.bg-inverse-idea {
+  background: #fbd79d;
+  border-color: #f5a623;
+}
+
+.bg-inverse-idea .breadcrumb-item {
+  color: #f5a623;
+}
+
+.bg-inverse-idea .breadcrumb-item:before {
+  color: inherit;
+}
+
+.bg-inverse-idea .breadcrumb-item a {
+  color: inherit;
+}
+
+.bg-inverse-idea.breadcrumb-custom {
+  background: transparent;
+}
+
+.bg-inverse-idea.breadcrumb-custom .breadcrumb-item {
+  background: #ffd600;
+}
+
+.bg-inverse-idea.breadcrumb-custom .breadcrumb-item a {
+  color: #252525;
+  /* font-size: 9px; */
+  border: none;
+}
+
+.bg-inverse-idea.breadcrumb-custom .breadcrumb-item a:before {
+  border-left-color: #ffd600;
+}
+
+.bg-inverse-idea.breadcrumb-custom .breadcrumb-item span {
+  color: #f5a623;
+}
+
+.bg-inverse-idea.breadcrumb-custom .breadcrumb-item:last-child {
+  background: #ffd600;
+}

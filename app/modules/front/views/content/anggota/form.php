@@ -43,7 +43,7 @@
 
           <div class="form-group">
             <label class="label-title" id="email">E-MAIL</label>
-            <input type="text" class="form-control" name="email" placeholder="">
+            <input type="text" class="form-control" name="email" placeholder="Masukkan Email">
             <p class="font-form">PENTING! Pastikan alamat E-mail yang anda masukkan adalah E-mail yang Aktif</p>
           </div>
 

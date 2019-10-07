@@ -23,8 +23,12 @@ class Formulir extends MY_Controller{
         $this->template->set_title("$status");
         $row = $this->model->get_detail_member();
         $query["row"] = $row;
-        $query['provinsi'] = $this->db->get("wil_provinsi");
-        $query['pekerjaan'] = $this->db->get("ref_pekerjaan");
+        if ($status=="personal") {
+          $query['provinsi'] = $this->db->get("wil_provinsi");
+          $query['pekerjaan'] = $this->db->get("ref_pekerjaan");
+        }elseif ($status=="rekening") {
+          $query['bank'] = $this->db->get("ref_bank");
+        }
         $query['action'] = site_url("formulir/form_act/$status");
         $data['content_view'] = $this->load->view("content/formulir/form_$status",$query,true);
         $this->template->view("content/formulir/index_form",$data);
@@ -34,12 +38,12 @@ class Formulir extends MY_Controller{
 
 
 
-  function form_act($link)
+  function form_act($link="")
     {
       if ($this->input->is_ajax_request()) {
-        $link_uri = array('personal','rekening','account','file');
+        $link_uri = array('personal','rekening','account','files');
         if (in_array($link,$link_uri)) {
-            $json = array('success'=>false, 'alert'=>array());
+            $json = array('success'=>false, 'alert'=>array(),"url"=>array());
             if ($link=="personal") {
               $this->_rules_personal();
               $table = "tb_person";
@@ -55,8 +59,13 @@ class Formulir extends MY_Controller{
                               "id_kabupaten"  =>  $this->input->post("kabupaten",true),
                               "id_kecamatan"  =>  $this->input->post("kecamatan",true),
                               "id_kelurahan"  =>  $this->input->post("kelurahan",true),
-                              "alamat"  =>  $this->input->post("alamat",true)
+                              "alamat"        =>  $this->input->post("alamat",true)
                               ];
+
+            $urls = site_url("front/formulir/form/rekening");
+
+
+
             }elseif ($link=="rekening") {
               $this->_rules_rekening();
               $table = "trans_person_rekening";
@@ -65,35 +74,46 @@ class Formulir extends MY_Controller{
                               "nama_rekening"   =>  $this->input->post("nama_rekening",true),
                               "kota_pembukuan"  =>  $this->input->post("kota_pembukuan",true)
                               ];
-            }elseif ($link=="account") {
-              $this->_rules_account();
-              $table = "tb_auth";
-              $this->load->helper(array("pass_has","enc_gue"));
-              $token = enc_uri(date("dmYhis"));
-              $password = $this->input->post("konfirmasi_password");
-              $data_update = ["token"     =>  $token,
-                              "password"  =>  pass_encrypt($token,$password)
-                              ];
-            }elseif ($link=="delete") {
-              $this->_rules_delete();
+            $urls = site_url("front/formulir/form/files");
+
+
+            }elseif ($link=="files") {
+              $this->form_validation->set_rules("foto_personal","&nbsp;*","trim|xss_clean|required|callback__cekfile[foto_personal]");
+              $this->form_validation->set_rules("file_ktp","&nbsp;*","trim|xss_clean|required|callback__cekfile[file_ktp]");
+              $this->form_validation->set_rules("file_kk","&nbsp;*","trim|xss_clean|required|callback__cekfile[file_kk]");
+              $this->form_validation->set_error_delimiters('<label class="error ml-1 text-danger" style="font-size:9px">','</label>');
               $table = "tb_person";
-              $keterangan = array('admin_approved' => sess("id_admin"),
-                                  'approved_time' => date("Y-m-d H:i:s"),
-                                  'desc'      => $this->input->post("keterangan",true)
-                                  );
-              $data_update = ["is_delete"     =>  "1",
-                              "keterangan"  =>  json_encode($keterangan)
-                              ];
+              $this->load->helper(array("pass_has"));
+              $file_name = enc_uri(profile("id_register"));
+              $data_update=["foto"=>"foto_$file_name",
+                            "file_ktp" => "ktp_$file_name",
+                            "file_kk" =>"kk_$file_name"
+                            ];
+
+
+
+              $config['upload_path']    = "./_template/files/";
+              $config['allowed_types']  = 'jpg'; // file yang di perbolehkan
+              $config['max_size']       = 1024; // maksimal ukuran
+              $config['overwrite']      = true;
+              $config['encrypt_name']   = true; 
+              $this->load->library('upload', $config);
+              $this->upload->do_upload("foto_personal");
+              $this->upload->do_upload("file_ktp");
+              $this->upload->do_upload("file_kk");
+
+              $urls = site_url("front/formulir/form/files");
             }
 
-            $this->form_validation->set_error_delimiters('<label class="error ml-1 text-danger" style="font-size:12px">','</label>');
-            $where = array('id_person' => dec_uri(sess("id_person")));
 
+
+            $where = array('id_person' => sess("id_person"));
 
             if ($this->form_validation->run()) {
               $this->model->get_update($table,$data_update,$where);
               $json['success'] = true;
               $json['alert'] = "Update successfully";
+              $json["url"]  = $urls;
             }else {
               foreach ($_POST as $key => $value)
               {
@@ -109,6 +129,21 @@ class Formulir extends MY_Controller{
 
 
 
+
+        function _cekfile($str,$post)
+        {
+          if ($_FILES["$post"]['type']!="image/jpeg") {
+            $this->form_validation->set_message('_cekfile', '* format file harus jpg');
+            return false;
+          }else {
+            if ($_FILES["$post"]['size'] > 1048576) {
+              $this->form_validation->set_message('_cekfile', '* Max ukuran file 1mb');
+              return false;
+            }else {
+              return true;
+            }
+          }
+        }
 
 
 
@@ -129,7 +164,18 @@ class Formulir extends MY_Controller{
         $this->form_validation->set_rules("kecamatan","&nbsp;*","trim|xss_clean|required");
         $this->form_validation->set_rules("kelurahan","&nbsp;*","trim|xss_clean|required");
         $this->form_validation->set_rules("alamat","&nbsp;*","trim|xss_clean|htmlspecialchars|required");
+        $this->form_validation->set_error_delimiters('<label class="error ml-1 text-danger" style="font-size:9px">','</label>');
     }
+
+    function _rules_rekening()
+    {
+      $this->form_validation->set_rules("bank","&nbsp;*","trim|xss_clean|required|numeric");
+      $this->form_validation->set_rules("no_rekening","&nbsp;*","trim|xss_clean|required|numeric");
+      $this->form_validation->set_rules("nama_rekening","&nbsp;*","trim|xss_clean|htmlspecialchars|required");
+      $this->form_validation->set_rules("kota_pembukuan","&nbsp;*","trim|xss_clean|htmlspecialchars|required");
+      $this->form_validation->set_error_delimiters('<label class="error ml-1 text-danger" style="font-size:9px">','</label>');
+    }
+
 
 
     function _cek_nik($str,$nik_lama)

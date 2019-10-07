@@ -33,6 +33,32 @@
     .capt table tr td{
       padding-right: 8px;
     }
+
+      .font-form{
+        margin-top: 3px;
+        font-size: 9px;
+        display: block;
+        line-height: 10px;
+      }
+
+      .form-group {
+        margin-bottom: 0.5rem;
+      }
+
+      .form-group label.label-title {
+        font-size: 0.775rem;
+        line-height: 1.4rem;
+        vertical-align: top;
+        margin-bottom: 1px;
+        font-weight: 600;
+    }
+
+
+    .form-group label.error {
+      margin-bottom: 1px;
+    }
+
+
   </style>
 </head>
 
@@ -51,121 +77,47 @@
 
 
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-sm" id="nik" name="nik" placeholder="NIK (No. Identitas Kependudukan)">
+                  <label class="label-title" id="nik">NIK</label>
+                  <input type="text" class="form-control form-control-sm" name="nik" placeholder="NIK (No. Identitas Kependudukan)">
+                  <p class="font-form">Masukkan NIK sesuai kartu tanda penduduk (KTP)</p>
                 </div>
 
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-sm" id="nama" name="nama" placeholder="Nama Lengkap">
+                  <label class="label-title" id="nama">Nama Lengkap</label>
+                  <input type="text" class="form-control form-control-sm" name="nama" placeholder="Nama Lengkap">
+                  <p class="font-form">Masukkan Nama sesuai kartu tanda penduduk (KTP)</p>
                 </div>
 
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-sm" id="email" name="email" placeholder="Email">
+                  <label class="label-title" id="email">Email</label>
+                  <input type="text" class="form-control form-control-sm" name="email" placeholder="Email">
+                  <p class="font-form">PENTING! Pastikan alamat E-mail yang anda masukkan adalah E-mail yang Aktif</p>
                 </div>
 
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-sm" id="telepon" name="telepon" placeholder="Telepon">
-                </div>
-
-                <div class="form-group">
-                  <input type="text" class="form-control-sm form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir">
-                </div>
-
-                <div class="form-group">
-                  <input type="text" class="form-control-sm form-control" data-provide="datepicker" id="tgl_lahir" name="tgl_lahir" placeholder="Tanggal Lahir">
-                </div>
-
-                <div class="form-group">
-                  <select class="form-control-sm form-control" name="pekerjaan" id="pekerjaan">
-                    <option value="">-- Pilih Pekerjaan --</option>
-                    <?php foreach ($pekerjaan as $kerja): ?>
-                      <option value="<?=$kerja->pekerjaan?>"><?=$kerja->pekerjaan?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <select class="form-control-sm form-control" name="jk" id="jk">
-                    <option value="">-- Pilih Jenis Kelamin--</option>
-                    <option value="pria">Pria</option>
-                    <option value="wanita">Wanita</option>
-                  </select>
+                  <label class="label-title" id="telepon">Telepon</label>
+                  <input type="text" class="form-control form-control-sm" name="telepon" placeholder="Telepon">
+                  <p class="font-form">PENTING! Pastikan Telepon yang anda masukkan adalah Nomor yang Aktif</p>
                 </div>
 
 
-                    <div class="form-group">
-                      <select class="form-control-sm form-control" name="provinsi" id="provinsi" onchange="loadKabupaten()">
-                        <option value="">-- Pilih Provinsi --</option>
-                        <?php foreach ($provinsi as $prov): ?>
-                          <option value="<?=$prov->id?>"><?=$prov->name?></option>
-                        <?php endforeach; ?>
 
-                      </select>
-                    </div>
-
-
-
-                    <div class="form-group">
-                      <select class="form-control-sm form-control" name="kabupaten" id="kabupaten" onChange='loadKecamatan()'>
-                        <option value="">-- Pilih Kabupaten/Kota --</option>
-                      </select>
-                    </div>
-
-
-
-                    <div class="form-group">
-                      <select class="form-control-sm form-control" name="kecamatan" id="kecamatan" onChange='loadKelurahan()'>
-                        <option value="">-- Pilih Kecamatan--</option>
-                      </select>
-                    </div>
-
-
-                    <div class="form-group">
-                      <select class="form-control-sm form-control" name="kelurahan" id="kelurahan">
-                        <option value="">-- Pilih Kelurahan/Desa--</option>
-                      </select>
-                    </div>
-
-                    <div class="form-group">
-                      <textarea name="alamat" id="alamat" rows="2" class="form-control-sm form-control" placeholder="Alamat Lengkap"></textarea>
-                    </div>
-
-                    <br><br>
-
-                    <div class="form-group">
-                      <select  class="form-control-sm form-control" id="bank" name="bank">
-                        <option value="">-- pilih BANK --</option>
-                        <?php foreach ($bank as $bk): ?>
-                          <option value="<?=$bk->id_bank?>"><?=$bk->inisial_bank?></option>
-                        <?php endforeach; ?>
-                      </select>
-                    </div>
-
-                    <div class="form-group">
-                      <input type="text" class="form-control-sm form-control" id="no_rek" name="no_rek" placeholder="No. Rekening">
-                    </div>
-
-                    <div class="form-group">
-                      <input type="text" class="form-control-sm form-control" id="nama_rekening" name="nama_rekening" placeholder="Nama Rekening">
-                    </div>
-
-                    <div class="form-group">
-                      <input type="text" class="form-control-sm form-control" id="kota_pembukaan_rek" name="kota_pembukaan_rek" placeholder="Kota/Kabupaten pembukaan Rekening">
-                    </div>
-
-
-                    <br><br>
+                <br><br>
 
                 <div class="form-group">
-                  <input type="text" class="form-control-sm form-control" id="username" name="username" placeholder="Username">
+                  <label class="label-title" id="username">Username</label>
+                  <input type="text" class="form-control-sm form-control" name="username" placeholder="Username">
                 </div>
 
 
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-sm" id="password" name="password" placeholder="Password">
+                  <label class="label-title"  id="password">Password</label>
+                  <input type="password" class="form-control form-control-sm" name="password" placeholder="Password">
                 </div>
 
                 <div class="form-group">
-                  <input type="password" class="form-control-sm form-control" id="v_password" name="v_password" placeholder="Konfirmasi Password">
+                  <label class="label-title" id="v_password">Konfirmasi Password</label>
+                  <input type="password" class="form-control-sm form-control" name="v_password" placeholder="Konfirmasi Password">
                 </div>
 
 
@@ -223,12 +175,7 @@
 
   <script>
   $(document).ready(function(){
-      $('#tgl_lahir').datepicker({
-        format: 'dd/mm/yyyy',
-        autoclose: true
-      });
-
-      $('.refreshCaptcha').on('click', function(e){
+$('.refreshCaptcha').on('click', function(e){
         e.preventDefault()
         $("#captcha").val("");
         $.get('<?php echo base_url().'signup-captcha'; ?>', function(data){
@@ -303,63 +250,6 @@
   });
 });
 
-  function loadKabupaten()
-        {
-            var provinsi = $("#provinsi").val();
-            if (provinsi!="") {
-              $.ajax({
-                  type:'GET',
-                  url:"<?php echo base_url(); ?>member-register/jsonkabupaten",
-                  data:"id=" + provinsi,
-                  success: function(html)
-                  {
-                     $("#kabupaten").html(html);
-                  }
-              });
-            }else {
-              $("#kabupaten").html('<option value="">-- Pilih Kabupaten/Kota --</option>');
-              $("#kecamatan").html('<option value="">-- Pilih Kecamatan --</option>');
-              $("#kelurahan").html('<option value="">-- Pilih Kelurahan/desa --</option>');
-            }
-        }
-
-        function loadKecamatan()
-          {
-              var kabupaten = $("#kabupaten").val();
-              if (kabupaten!="") {
-                $.ajax({
-                    type:'GET',
-                    url:"<?php echo base_url(); ?>member-register/jsonkecamatan",
-                    data:"id=" + kabupaten,
-                    success: function(html)
-                    {
-                        $("#kecamatan").html(html);
-                    }
-                });
-              }else {
-                $("#kecamatan").html('<option value="">-- Pilih Kecamatan --</option>');
-                $("#kelurahan").html('<option value="">-- Pilih Kelurahan/desa --</option>');
-              }
-
-          }
-
-          function loadKelurahan()
-          {
-              var kecamatan = $("#kecamatan").val();
-              if (kecamatan!="") {
-                $.ajax({
-                    type:'GET',
-                    url:"<?php echo base_url(); ?>member-register/jsonkelurahan",
-                    data:"id=" + kecamatan,
-                    success: function(html)
-                    {
-                        $("#kelurahan").html(html);
-                    }
-                });
-              }else {
-                $("#kelurahan").html('<option value="">-- Pilih Kelurahan/Desa --</option>');
-              }
-          }
   </script>
 </body>
 </html>

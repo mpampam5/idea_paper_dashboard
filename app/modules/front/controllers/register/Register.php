@@ -13,33 +13,19 @@ class Register extends CI_Controller{
 
   function _rules()
   {
-    $this->form_validation->set_rules("nik","NIK","trim|xss_clean|min_length[16]|required|numeric|callback__cek_nik");
+    $this->form_validation->set_rules("nik","&nbsp;*","trim|xss_clean|min_length[16]|required|numeric|callback__cek_nik");
 
-    $this->form_validation->set_rules("nama","Nama","trim|xss_clean|htmlspecialchars|required");
-    $this->form_validation->set_rules("email","Email","trim|xss_clean|htmlspecialchars|required|valid_email|callback__cek_email");
-    $this->form_validation->set_rules("telepon","Telepon","trim|xss_clean|required|numeric");
-    $this->form_validation->set_rules("pekerjaan","Pekerjaan","trim|xss_clean|required|htmlspecialchars");
-
-    $this->form_validation->set_rules("tempat_lahir","Tempat Lahir","trim|htmlspecialchars|xss_clean|required");
-    $this->form_validation->set_rules("tgl_lahir","Tanggal Lahir","trim|htmlspecialchars|xss_clean|required");
-    $this->form_validation->set_rules("jk","Jenis Kelamin","trim|xss_clean|htmlspecialchars|required");
-    $this->form_validation->set_rules("provinsi","Provinsi","trim|xss_clean|htmlspecialchars|required");
-    $this->form_validation->set_rules("kabupaten","Kabupaten/Kota","trim|xss_clean|htmlspecialchars|required");
-    $this->form_validation->set_rules("kecamatan","Kecamatan","trim|xss_clean|htmlspecialchars|required");
-    $this->form_validation->set_rules("kelurahan","Kelurahan/Desa","trim|xss_clean|htmlspecialchars|required");
-    $this->form_validation->set_rules("alamat","Alamat Lengkap","trim|xss_clean|htmlspecialchars|required");
-    $this->form_validation->set_rules("bank","Jenis Bank","trim|xss_clean|required");
-    $this->form_validation->set_rules("no_rek","NO.rekening","trim|xss_clean|required|numeric");
-    $this->form_validation->set_rules("nama_rekening","Nama Rekening","trim|xss_clean|htmlspecialchars|required");
-    $this->form_validation->set_rules("kota_pembukaan_rek","Kota/Kabupaten Pembukaan Rekening","trim|xss_clean|htmlspecialchars|required");
-    $this->form_validation->set_rules("username","Username","trim|xss_clean|required|htmlspecialchars|alpha_numeric|is_unique[tb_auth.username]",[
+    $this->form_validation->set_rules("nama","&nbsp;*","trim|xss_clean|htmlspecialchars|required");
+    $this->form_validation->set_rules("email","&nbsp;*","trim|xss_clean|htmlspecialchars|required|valid_email|callback__cek_email");
+    $this->form_validation->set_rules("telepon","&nbsp;*","trim|xss_clean|required|numeric");
+    $this->form_validation->set_rules("username","&nbsp;*","trim|xss_clean|required|htmlspecialchars|alpha_numeric|is_unique[tb_auth.username]",[
       "is_unique" => "Coba Username yang lain"
     ]);
-    $this->form_validation->set_rules("password","Password","trim|xss_clean|required|min_length[5]");
-    $this->form_validation->set_rules("v_password","Konfirmasi Password","trim|xss_clean|required|matches[password]");
+    $this->form_validation->set_rules("password","&nbsp;*","trim|xss_clean|required|min_length[5]");
+    $this->form_validation->set_rules("v_password","&nbsp;*","trim|xss_clean|required|matches[password]");
 
     $this->form_validation->set_rules("captcha","Captcha","trim|xss_clean|required");
-    $this->form_validation->set_error_delimiters('<label class="error mt-1 text-danger" style="font-size:12px">','</label>');
+    $this->form_validation->set_error_delimiters('<label class="error  ml-1 text-danger" style="font-size:9px">','</label>');
   }
 
 
@@ -120,20 +106,6 @@ function action()
         $nama               = $this->input->post("nama",true);
         $email              = $this->input->post("email",true);
         $telepon            = $this->input->post("telepon",true);
-        $pekerjaan          = $this->input->post("pekerjaan",true);
-        $tempat_lahir       = $this->input->post("tempat_lahir",true);
-        $tgl_lahir          = $this->input->post("tgl_lahir",true);
-        $jk                 = $this->input->post("jk",true);
-        $provinsi           = $this->input->post("provinsi",true);
-        $kabupaten          = $this->input->post("kabupaten",true);
-        $kecamatan          = $this->input->post("kecamatan",true);
-        $kelurahan          = $this->input->post("kelurahan",true);
-        $alamat             = $this->input->post("alamat",true);
-        $paket              = $this->input->post("paket",true);
-        $bank               = $this->input->post("bank",true);
-        $no_rek             = $this->input->post("no_rek",true);
-        $nama_rekening      = $this->input->post("nama_rekening",true);
-        $kota_pembukaan_rek = $this->input->post("kota_pembukaan_rek",true);
         $username           = strtolower($this->input->post("username",true));
         $password           = $this->input->post("v_password",true);
         //
@@ -152,15 +124,6 @@ function action()
                                 "nama"          => $nama,
                                 "telepon"       => $telepon,
                                 "email"         => $email,
-                                "jenis_kelamin" => $jk,
-                                "pekerjaan"     => $pekerjaan,
-                                "tempat_lahir"  => $tempat_lahir,
-                                "tanggal_lahir"     => date("Y-m-d",strtotime($tgl_lahir)),
-                                "id_provinsi"      => $provinsi,
-                                "id_kabupaten"     => $kabupaten,
-                                "id_kecamatan"     => $kecamatan,
-                                "id_kelurahan"     => $kelurahan,
-                                "alamat"        => $alamat,
                                 "is_delete" => "0",
                                 "is_verifikasi" => "0",
                                 "is_complate" => "0",
@@ -171,12 +134,7 @@ function action()
           //
           $last_id_member = $this->db->insert_id();
           //
-          $insert_data_bank = [ "id_person"                =>  $last_id_member,
-                                "ref_bank"                  =>  $bank,
-                                "no_rekening"              =>  $no_rek,
-                                "nama_rekening"            =>  $nama_rekening,
-                                "kota_pembukuan"  =>  $kota_pembukaan_rek
-                              ];
+          $insert_data_bank = [ "id_person" =>  $last_id_member];
           // insert data bank
           $this->model->get_insert("trans_person_rekening",$insert_data_bank);
           //

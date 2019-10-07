@@ -1,10 +1,25 @@
-<link rel="stylesheet" href="<?=base_url()?>_template/front/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
-<script src="<?=base_url()?>_template/front/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 <style media="screen">
-  .datepicker table{
-    width: 100%;
-  }
+.form-group label.label-title {
+  font-size: 0.875rem;
+  line-height: 1.4rem;
+  vertical-align: top;
+  margin-bottom: 1px;
+  font-weight: 600;
+}
+
+
+.form-group label.error {
+  margin-bottom: 0;
+}
+
 </style>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-custom bg-inverse-idea">
+    <li class="breadcrumb-item"><a href="#">Data Personal</a></li>
+  </ol>
+</nav>
+
 <p class="text-center" style="font-size:12px;">Silahkan lengkapi data anda.</p>
 
 <div class="p-3">
@@ -12,7 +27,7 @@
   <div class="row">
   <div class="col-sm-6">
     <div class="form-group">
-      <label id="nik">No. Identitas Kependudukan</label>
+      <label class="label-title"  id="nik">NIK</label>
       <input type="text" class="form-control" name="nik" value="<?=$row->nik?>">
     </div>
   </div>
@@ -21,21 +36,21 @@
 
   <div class="col-sm-6">
     <div class="form-group">
-      <label id="nama">Nama Lengkap</label>
+      <label class="label-title" id="nama">Nama Lengkap</label>
       <input type="text" class="form-control"  name="nama" value="<?=$row->nama?>">
     </div>
   </div>
 
   <div class="col-sm-6">
     <div class="form-group">
-      <label id="telepon">No.Telepon</label>
+      <label class="label-title" id="telepon">No.Telepon</label>
       <input type="text" class="form-control"  name="telepon" value="<?=$row->telepon?>">
     </div>
   </div>
 
   <div class="col-sm-6">
     <div class="form-group">
-      <label id="email">Email</label>
+      <label class="label-title" id="email">Email</label>
       <input type="text" class="form-control"  name="email" value="<?=$row->email?>">
     </div>
   </div>
@@ -44,7 +59,7 @@
 
   <div class="col-sm-6">
     <div class="form-group">
-      <label id="pekerjaan">Pekerjaan</label>
+      <label class="label-title" id="pekerjaan">Pekerjaan</label>
       <select class="form-control" style="color:#495057"  name="pekerjaan">
           <option value=""> -- pilih pekerjaan --</option>
           <?php foreach ($pekerjaan->result() as $kerja): ?>
@@ -56,7 +71,7 @@
 
   <div class="col-sm-6">
     <div class="form-group">
-      <label id="jenis_kelamin">Jenis Kelamin</label>
+      <label class="label-title" id="jenis_kelamin">Jenis Kelamin</label>
       <select class="form-control" name="jenis_kelamin"  style="color:#535353">
         <option value="">-- pilih jenis kelamin --</option>
         <option <?=$row->jenis_kelamin == "pria" ? "selected":""?> value="pria">PRIA</option>
@@ -67,50 +82,62 @@
 
   <div class="col-sm-6">
     <div class="form-group">
-      <label id="tempat_lahir">Tempat Lahir</label>
+      <label class="label-title" id="tempat_lahir">Tempat Lahir</label>
       <input type="text" class="form-control"  name="tempat_lahir" value="<?=$row->tempat_lahir?>">
     </div>
   </div>
 
+  <?php
+  if ($row->tanggal_lahir!="") {
+    $explode = explode("-",$row->tanggal_lahir);
+  }else {
+    $explode = explode("-","9999-99-99");
+  }
+   ?>
+
   <div class="col-sm-6">
     <div class="form-group">
-      <label id="tanggal_lahir">Tanggal Lahir</label>
+      <label class="label-title" id="tanggal_lahir">Tanggal Lahir</label>
       <div class="row">
         <div class="col-4">
           <select  class="form-control form-control-sm" style="color:#495057" name="tgl">
             <option value="">--tgl--</option>
             <?php
               for ($i=1; $i <= 31 ; $i++) {
-                echo '<option value="'.$i.'">'.$i.'</option>';
+                $tgl = str_replace("0","",$explode[2])==$i ? "selected":"";
+                echo '<option '.$tgl.'  value="'.$i.'">'.$i.'</option>';
               }
             ?>
           </select>
         </div>
 
+
         <div class="col-4">
           <select  class="form-control form-control-sm" style="color:#495057" name="bln">
             <option value="">--bln--</option>
-            <option value="01">Januari</option>
-            <option value="02">Februari</option>
-            <option value="03">Maret</option>
-            <option value="04">April</option>
-            <option value="05">Mei</option>
-            <option value="06">Juni</option>
-            <option value="07">Juli</option>
-            <option value="08">Agustus</option>
-            <option value="09">September</option>
-            <option value="10">Oktober</option>
-            <option value="11">November</option>
-            <option value="12">Desember</option>
+            <option <?=$explode[1]=="01" ? "selected":"";?> value="01">Januari</option>
+            <option <?=$explode[1]=="02" ? "selected":"";?> value="02">Februari</option>
+            <option <?=$explode[1]=="03" ? "selected":"";?> value="03">Maret</option>
+            <option <?=$explode[1]=="04" ? "selected":"";?> value="04">April</option>
+            <option <?=$explode[1]=="05" ? "selected":"";?> value="05">Mei</option>
+            <option <?=$explode[1]=="06" ? "selected":"";?> value="06">Juni</option>
+            <option <?=$explode[1]=="07" ? "selected":"";?> value="07">Juli</option>
+            <option <?=$explode[1]=="08" ? "selected":"";?> value="08">Agustus</option>
+            <option <?=$explode[1]=="09" ? "selected":"";?> value="09">September</option>
+            <option <?=$explode[1]=="10" ? "selected":"";?> value="10">Oktober</option>
+            <option <?=$explode[1]=="11" ? "selected":"";?> value="11">November</option>
+            <option <?=$explode[1]=="12" ? "selected":"";?> value="12">Desember</option>
           </select>
         </div>
+
 
         <div class="col-4">
           <select  class="form-control form-control-sm" style="color:#495057" name="thn">
             <option value="">--thn--</option>
             <?php
               for ($i=1950; $i <= date("Y") ; $i++) {
-                echo '<option value="'.$i.'">'.$i.'</option>';
+                $tahun = $explode[0]==$i ? "selected":"";
+                echo '<option '.$tahun.' value="'.$i.'">'.$i.'</option>';
               }
             ?>
           </select>
@@ -141,7 +168,7 @@
 
   <div class="col-sm-6">
     <div class="form-group">
-      <label id="provinsi">Provinsi</label>
+      <label class="label-title" id="provinsi">Provinsi</label>
       <select class="form-control form-control-sm" style="color:#495057" id="get_provinsi" name="provinsi" onchange="loadKabupaten()">
           <option value="">-- pilih provinsi --</option>
           <?php foreach ($provinsi->result() as $prov): ?>
@@ -153,7 +180,7 @@
 
   <div class="col-sm-6">
     <div class="form-group">
-      <label id="kabupaten">Kabupaten/Kota</label>
+      <label class="label-title" id="kabupaten">Kabupaten/Kota</label>
       <select class="form-control kabupaten form-control-sm" style="color:#495057" id="get_kabupaten" name="kabupaten" onChange='loadKecamatan()'>
         <option value="">-- pilih kabupaten/kota --</option>
         <?=tampilkan_wilayah("wil_kabupaten",["province_id"=>$row->id_provinsi],$row->id_kabupaten)?>
@@ -163,7 +190,7 @@
 
   <div class="col-sm-6">
     <div class="form-group">
-      <label id="kecamatan">Kecamatan</label>
+      <label class="label-title" id="kecamatan">Kecamatan</label>
       <select class="form-control form-control-sm kecamatan" style="color:#495057" id="get_kecamatan" name="kecamatan" onChange='loadKelurahan()'>
           <option value="">-- pilih kecamatan --</option>
           <?=tampilkan_wilayah("wil_kecamatan",["regency_id"=>$row->id_kabupaten],$row->id_kecamatan)?>
@@ -173,7 +200,7 @@
 
   <div class="col-sm-6">
     <div class="form-group">
-      <label id="kelurahan">Kelurahan</label>
+      <label class="label-title" id="kelurahan">Kelurahan</label>
       <select class="form-control form-control-sm kelurahan" style="color:#495057" id="get_kelurahan" name="kelurahan">
           <option value="">-- pilih kelurahan --</option>
           <?=tampilkan_wilayah("wil_kelurahan",["district_id"=>$row->id_kecamatan],$row->id_kelurahan)?>
@@ -183,7 +210,7 @@
 
   <div class="col-sm-12">
     <div class="form-group">
-      <label id="alamat">Keterangan Alamat</label>
+      <label class="label-title" id="alamat">Keterangan Alamat</label>
       <textarea class="form-control" name="alamat" rows="3" cols="80"><?=$row->alamat?></textarea>
     </div>
   </div>
@@ -230,7 +257,7 @@ $("#form").submit(function(e){
                 loaderBg: '#f96868',
                 position: 'bottom-right',
                 afterHidden: function () {
-                    window.location.href="<?=site_url("front/formulir/form/rekening/")?>";
+                    window.location.href=json.url;
                 }
               });
 
