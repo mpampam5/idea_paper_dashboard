@@ -70,7 +70,7 @@
             <div id="list-anggota"></div>
             <div id="load_data_message"></div>
             <?php else: ?>
-              <p class="text-center" style="margin-top:50%;font-style:italic"> Anda belum melakukan Top up</p>
+              <p class="text-center" style="margin-top:50%;font-style:italic"> Data belum ada</p>
           <?php endif; ?>
         </ul>
       </div>

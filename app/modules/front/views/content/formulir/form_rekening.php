@@ -62,13 +62,18 @@
   </div>
 
 
+  <div class="col-sm-12 mt-5">
+    <a href="<?=site_url("front/formulir/form/personal")?>" class="btn btn-sm btn-secondary text-white"><i class="ti-angle-double-left"></i> Sebelumnya</a>
+    <button type="submit" id="submit" class="btn btn-sm btn-primary" name="button"><i class="ti-check-box"></i> Simpan & Lanjutkan</button>
+  </div>
+
+
 </div>
 
 
 
 
-  <a href="<?=site_url("dashboard")?>" class="btn btn-sm btn-secondary text-white"><i class="ti-home"></i></a>
-  <button type="submit" id="submit" class="btn btn-sm btn-primary" name="button"><i class="ti-check-box"></i> Simpan & Lanjutkan</button>
+
 
   </form>
 </div>
@@ -102,7 +107,7 @@ $("#form").submit(function(e){
                 showHideTransition: 'slide',
                 icon: 'success',
                 loaderBg: '#f96868',
-                position: 'bottom-right',
+                position: 'top-center',
                 afterHidden: function () {
                     window.location.href=json.url;
                 }

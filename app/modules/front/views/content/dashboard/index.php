@@ -112,6 +112,23 @@
 						</div>
           </div>
 
+          <?php if (profile("is_complate")!="1"): ?>
+          <div class="row">
+            <div class="col-sm-12 pr-5 pl-5 text-center ">
+              <p style="font-size:10px;line-height:12px;" class="text-primary">Mungkin beberapa fitur tidak dapat anda gunakan, silahkan lengkapi data anda terlebih dahulu.</p>
+              <a href="<?=site_url("formulir/form/personal")?>" class="badge badge-info text-white"> <i class="ti-file"></i> Lengkapi Data</a>
+            </div>
+          </div>
+          <?php else: ?>
+            <?php if (profile("is_verifikasi")!="1"): ?>
+              <div class="row">
+                <div class="col-sm-12 pr-5 pl-5 text-center ">
+                  <p style="font-size:10px;line-height:12px;" class="text-primary">Data anda dalam proses verifikasi. Mungkin beberapa fitur tidak dapat anda gunakan.</p>
+                </div>
+              </div>
+            <?php endif; ?>
+        <?php endif; ?>
+
 
             <div class=" toolbar-icon">
               <div class="title-toolbar">

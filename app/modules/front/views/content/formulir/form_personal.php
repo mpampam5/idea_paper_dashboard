@@ -255,7 +255,7 @@ $("#form").submit(function(e){
                 showHideTransition: 'slide',
                 icon: 'success',
                 loaderBg: '#f96868',
-                position: 'bottom-right',
+                position: 'top-center',
                 afterHidden: function () {
                     window.location.href=json.url;
                 }

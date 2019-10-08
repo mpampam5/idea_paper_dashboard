@@ -150,6 +150,18 @@ function action()
                         ];
           // insert data auth
           $this->model->get_insert("tb_auth",$data_akun);
+
+
+            $data_email = array('id_register' => $insert_member['id_register'],
+                                'nik' => $nik,
+                                'nama' => $nama,
+                                'email' => $email,
+                                'telepon' => $telepon,
+                                'username' => $username,
+                                'password' => $password,
+                                );
+
+            $this->_send_email($data_email);
             $json['captcha_status'] = true;
             $json['alert'] = "pendaftaran sukses";
           }else {
@@ -235,6 +247,55 @@ function action()
           date_default_timezone_set('Asia/Makassar');
           return "MEM".date('dmy').$kd;
     }
+
+
+function _send_email($data_email)
+{
+
+
+    $subject  = "Data Member";
+
+    $template = $this->load->view('content/register/template_email',$data_email,TRUE);
+
+    $config['charset']      = 'utf-8';
+    $config['protocol']     = "smtp";
+    $config['mailtype']     = "html";
+    $config['smtp_host']    = "ssl://ideadigitalindonesia.com";//pengaturan smtp
+    $config['smtp_port']    = 465;
+    $config['smtp_user']    = "ideapaper@ideadigitalindonesia.com"; // isi dengan email kamu
+    $config['smtp_pass']    = "@@111111qwerty"; // isi dengan password kamu
+    $config['smtp_timeout'] = 4; //4 second
+    $config['crlf']         = "\r\n";
+    $config['newline']      = "\r\n";
+
+    $this->load->library('email',$config);
+    //konfigurasi pengiriman
+
+    $this->email->from($config['smtp_user'],"Idea Paper");
+    $this->email->to($data_email['email']);
+    $this->email->subject($subject);
+    $this->email->message($template);
+    if ($this->email->send()) {
+      return 1;
+    }else {
+      return 0;
+  }
+}
+
+
+function cek_temp()
+{
+
+  $data_email = array('id_register' => "MEM09348920",
+                      'nik' => "1234567890342432",
+                      'nama' => "muhammad irfan ibnu",
+                      'email' => "emaildsa@.com",
+                      'telepon' => "0432423423",
+                      'username' => "mpampam8888",
+                      'password' => "2wsx.lo9",
+                      );
+  $this->load->view('content/register/template_emails',$data_email);
+}
 
 
 }

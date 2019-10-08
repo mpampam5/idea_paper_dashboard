@@ -115,14 +115,23 @@
 
           <div class="row">
             <div class="col-md-12 grid-margin mt-3 mb-2 text-center">
-              <p class="mb-5" style="font-size:12px;padding:10px;">
-                Maaf Fitur ini belum bisa anda gunakan. Silahkan lengkapi data anda terlebih dahulu.<br>
-              </p>
+              <?php if (profile("is_complate")=="1"): ?>
+                <p class="mb-5" style="font-size:12px;padding:10px;">
+                  Data anda sedang dalam proses <i class="text-success">verifikasi</i>.<br>
+                  Silahkan hubungi admin jika terjadi masalah.
+                </p>
 
-              <a href="<?=site_url("dashboard")?>" class="btn btn-outline-primary btn-sm"> <i class="ti-home"></i> Dashboard</a>
-              <a href="<?=site_url("formulir/form/personal")?>" class="btn btn-outline-primary btn-sm"> <i class="ti-file"></i> Lengkapi Data</a>
+                <a href="<?=site_url("dashboard")?>" class="btn btn-outline-primary btn-sm"> <i class="ti-home"></i> Dashboard</a>
+                <?php else: ?>
+                  <p class="mb-5" style="font-size:12px;padding:10px;">
+                    Maaf Fitur ini belum bisa anda gunakan. Silahkan lengkapi data anda terlebih dahulu.<br>
+                  </p>
 
-						</div>
+                  <a href="<?=site_url("dashboard")?>" class="btn btn-outline-primary btn-sm"> <i class="ti-home"></i> Dashboard</a>
+                  <a href="<?=site_url("formulir/form/personal")?>" class="btn btn-outline-primary btn-sm"> <i class="ti-file"></i> Lengkapi Data</a>
+              <?php endif; ?>
+
+            </div>
           </div>
 
 

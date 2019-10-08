@@ -7,7 +7,7 @@ class Anggota extends MY_Controller{
   public function __construct()
   {
     parent::__construct();
-    if (profile("is_complate")=="0") {
+    if (profile("is_complate")=="0" OR profile("is_verifikasi")=="0") {
         redirect("formulir","refresh");
     }
     $this->load->model("Anggota_model","model");
@@ -134,6 +134,19 @@ class Anggota extends MY_Controller{
 
           $this->model->get_insert("trans_person_sponsor",$data_sponsor);
 
+
+          $data_email = array('id_register' => $insert_member['id_register'],
+                              'nik' => $nik,
+                              'nama' => $nama,
+                              'email' => $email,
+                              'telepon' => $telepon,
+                              'username' => $username,
+                              'password' => $password,
+                              );
+
+          $this->_send_email($data_email);
+
+
           // Validasi DB trans
           $this->db->trans_complete();
           if ($this->db->trans_status() === FALSE)
@@ -205,6 +218,38 @@ class Anggota extends MY_Controller{
 
 
 
+  function _send_email($data_email)
+  {
+
+
+      $subject  = "Data Member";
+
+      $template = $this->load->view('content/register/template_email',$data_email,TRUE);
+
+      $config['charset']      = 'utf-8';
+      $config['protocol']     = "smtp";
+      $config['mailtype']     = "html";
+      $config['smtp_host']    = "ssl://ideadigitalindonesia.com";//pengaturan smtp
+      $config['smtp_port']    = 465;
+      $config['smtp_user']    = "ideapaper@ideadigitalindonesia.com"; // isi dengan email kamu
+      $config['smtp_pass']    = "@@111111qwerty"; // isi dengan password kamu
+      $config['smtp_timeout'] = 4; //4 second
+      $config['crlf']         = "\r\n";
+      $config['newline']      = "\r\n";
+
+      $this->load->library('email',$config);
+      //konfigurasi pengiriman
+
+      $this->email->from($config['smtp_user'],"Idea Paper");
+      $this->email->to($data_email['email']);
+      $this->email->subject($subject);
+      $this->email->message($template);
+      if ($this->email->send()) {
+        return 1;
+      }else {
+        return 0;
+    }
+  }
 
 
 

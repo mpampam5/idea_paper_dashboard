@@ -16,6 +16,8 @@ class Formulir_model extends CI_Model{
                                     tb_person.telepon,
                                     tb_person.email,
                                     tb_person.foto,
+                                    tb_person.file_ktp,
+                                    tb_person.file_kk,
                                     tb_person.alamat,
                                     tb_person.id_provinsi,
                                     tb_person.id_kabupaten,
