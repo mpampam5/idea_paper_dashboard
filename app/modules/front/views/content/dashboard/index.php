@@ -137,7 +137,7 @@
                 </span>
               </div>
 
-              <a href="<?=site_url("maintenance")?>" ><img src="<?=base_url()?>_template/front/icon/tradings.png" alt="" title=""><span>TRADING</span></a>
+              <a href="<?=site_url("trading/info")?>" ><img src="<?=base_url()?>_template/front/icon/tradings.png" alt="" title=""><span>TRADING</span></a>
               <a href="<?=site_url("maintenance")?>" ><img src="<?=base_url()?>_template/front/icon/project.png" alt="" title=""><span>PROJECT</span></a>
               <a href="<?=site_url("maintenance")?>" ><img src="<?=base_url()?>_template/front/icon/ecommerse.png" alt="" title=""><span>MARKET PLACE</span></a>
             </div>

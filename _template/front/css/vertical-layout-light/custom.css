@@ -625,3 +625,130 @@ ul.list-anggota li a .waktu{
 .bg-inverse-idea.breadcrumb-custom .breadcrumb-item:last-child {
   background: #ffd600;
 }
+
+
+
+/* //trading */
+.trading-info{
+  position: relative;
+  width: 100%;
+  margin-top: 5px;
+  padding: 5px 5px 5px 5px;
+  box-shadow: 1px 1px 3px #dadada;
+}
+
+
+.trading-title{
+  font-size: 14px;
+  font-weight: 600;
+  color:#393939;
+  padding: 5px 5px 0 5px;
+  text-transform: uppercase;
+}
+
+.table-info-trading tr th,td{
+  font-size:12px;
+}
+
+.table-info-trading tr th{
+  color:#494949;
+}
+
+.table-info-trading tr td{
+  padding :2px 2px 2px 2px;
+}
+
+.info-keterangan-trading{
+  margin-top: 15px;
+}
+
+.info-keterangan-trading span{
+  font-size: 12px;
+  color: #494949;
+  font-weight: bold;
+}
+
+.info-keterangan-trading p{
+  font-size: 11px;
+  color: #494949;
+}
+
+/*
+.trading-menu{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #ffffff;
+  -webkit-box-shadow: -2px 9px 13px 4px rgba(0,0,0,0.87);
+  -moz-box-shadow: -2px 9px 13px 4px rgba(0,0,0,0.87);
+  box-shadow: -2px 9px 13px 4px rgba(0,0,0,0.87);
+} */
+
+
+.menu-trading {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  -webkit-box-shadow: -2px 9px 13px 4px rgba(0,0,0,0.87);
+  -moz-box-shadow: -2px 9px 13px 4px rgba(0,0,0,0.87);
+  box-shadow: -2px 9px 13px 4px rgba(0,0,0,0.87);
+  transition: bottom 0.5s;
+  text-align: center;
+}
+
+.menu-trading a {
+  /* float: left; */
+  display: inline-block;
+  color: #606060;
+  text-align: center;
+  padding: 5px 5px 0 5px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  /* overflow-y: scroll; */
+}
+
+.menu-trading a:hover {
+  /* background: #f1f1f1; */
+  color: #a6a49e;
+}
+
+.menu-trading a.active {
+  /* background-color: #4CAF50; */
+  color: #ffb000;
+}
+
+@media screen and (max-width: 320px)
+{
+  .menu-trading a {
+    font-size: 13px;
+    padding: 2px;
+  }
+
+}
+
+
+.content-history-paper{
+  position: relative;
+  padding: 5px;
+}
+
+.content-history-paper .list-history-paper{
+  border-bottom: 1px solid #c3c3c3 ;
+  margin: 3px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.content-history-paper .list-history-paper span{
+  line-height: 16px;
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #585858;
+}

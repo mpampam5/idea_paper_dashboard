@@ -110,3 +110,8 @@ $route['anggota-json'] = 'front/anggota/json';
 $route['anggota-add'] = 'front/anggota/add';
 
 $route['anggota-add-action'] = 'front/anggota/add_action';
+
+
+$route['trading/(:any)'] = 'front/trading/get/$1';
+
+$route['trading/beli'] = 'front/trading/form_beli';
