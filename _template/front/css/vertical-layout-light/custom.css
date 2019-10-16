@@ -711,6 +711,7 @@ ul.list-anggota li a .waktu{
   font-size: 14px;
   font-weight: 600;
   /* overflow-y: scroll; */
+  text-transform: uppercase;
 }
 
 .menu-trading a:hover {

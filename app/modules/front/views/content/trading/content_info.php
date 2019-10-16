@@ -17,12 +17,7 @@
 
       <tr>
         <th>Jumlah Paper Terbeli</th>
-        <td> : <?php
-              $total_paper_terpakai = $this->db->select("id_trans_person_trading,SUM(jumlah_paper) AS jumlah_paper")
-                                               ->get("trans_person_trading")
-                                               ->row();
-          echo "$total_paper_terpakai->jumlah_paper";
-          ?></td>
+        <td> : <?=total_paper_terpakai()?></td>
       </tr>
 
       <tr>
@@ -42,7 +37,7 @@
 
       <tr>
         <th>Jumlah Paper Tersedia</th>
-        <td> : <?=$row->jumlah_paper-$total_paper_terpakai->jumlah_paper?> </td>
+        <td> : <?=$row->jumlah_paper-total_paper_terpakai()?> </td>
       </tr>
 
     </table>
@@ -53,7 +48,7 @@
     </div>
 
 
-    <a href="<?=site_url("trading/beli")?>" class="badge badge-primary mt-4" id="beli_paper"><i class="ti-shopping-cart-full"></i> BELI PAPER</a>
+    <a href="<?=site_url("trading/beli")?>" class="badge badge-primary mt-4" id="beli_paper"><i class="ti-files"></i> BELI PAPER</a>
 
   </div>
 

@@ -83,12 +83,12 @@ return $str;
 
 function balance()
 {
-
   $topup = _cek_topup();
   $withdraw = _cek_withdraw();
   $biaya_sponsor = _cek_biaya_sponsor();
   $komisi_sponsor = _cek_komisi_sponsor();
-  $total = $topup + $komisi_sponsor - $withdraw - $biaya_sponsor;
+  $investasi_trading = _investasi_trading();
+  $total = $topup + $komisi_sponsor - $withdraw - $biaya_sponsor - $investasi_trading;
   return $total;
 }
 
@@ -171,4 +171,58 @@ function upload_file_personal($str,$file_name)
   $ci->upload->do_upload("$str");
 
   return true;
+}
+
+
+
+//Trading paper
+function get_info_trading($field)
+  {
+    $ci=& get_instance();
+    $query = $ci->db->get_where("trading",['id_trading'=>1])->row();
+    return $query->$field;
+  }
+
+function total_paper_terpakai()
+{
+  $ci=& get_instance();
+  $total_paper_terpakai = $ci->db->select("id_trans_person_trading,SUM(jumlah_paper) AS jumlah_paper")
+                                 ->get("trans_person_trading")
+                                 // ->where("status_kontrak","belum")
+                                 ->row();
+  return $total_paper_terpakai->jumlah_paper;
+}
+
+
+function _investasi_trading()
+{
+  $ci=& get_instance();
+  $query = $ci->db->select("id_trans_person_trading,id_person,SUM(total_harga_paper) AS total_harga_paper,status_kontrak")
+                  ->from("trans_person_trading")
+                  ->where("id_person",sess('id_person'))
+                  ->where("status_kontrak","belum")
+                  ->get()
+                  ->row();
+  return $query->total_harga_paper;
+}
+
+function time_start_dividen_trading()
+{
+  $tgl1 = date("Y-m-d");// pendefinisian tanggal awal
+  $tgl2 = date('Y-m-d', strtotime('+1 month', strtotime($tgl1))); //operasi penjumlahan tanggal sebanyak 6 hari
+
+  $tahun = date("Y",strtotime($tgl2));
+  $bulan= date("m",strtotime($tgl2));
+  $hasil = "$tahun-$bulan-1";
+
+  return $hasil;
+}
+
+
+function masa_berlaku_paper($waktu_mulai)
+{
+  $sekarang = date("d-m-Y");
+  $masaberlaku = strtotime($waktu_mulai) - strtotime($sekarang);
+
+  return $masaberlaku/(24*60*60);
 }

@@ -115,3 +115,4 @@ $route['anggota-add-action'] = 'front/anggota/add_action';
 $route['trading/(:any)'] = 'front/trading/get/$1';
 
 $route['trading/beli'] = 'front/trading/form_beli';
+$route['trading/act-form'] = 'front/trading/act_form';

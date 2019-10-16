@@ -15,4 +15,10 @@ function get_info_trading()
     return $query->row();
   }
 
+
+  function get_insert($table,$data)
+  {
+    return $this->db->insert($table,$data);
+  }
+
 }

@@ -5,13 +5,14 @@
   $total = $this->db->select("id_trans_person_trading,kode_transaksi,id_person,SUM(jumlah_paper) AS jumlah_paper,SUM(total_harga_paper) AS total_harga_paper,created")
                                         ->from("trans_person_trading")
                                         ->where("id_person",sess('id_person'))
+                                        ->where("status_kontrak","belum")
                                         ->get()
                                         ->row();
    ?>
   <table class="table-info-trading">
     <tr>
       <th>Jumlah Paper Anda</th>
-      <td> : <?=$total->jumlah_paper?> </td>
+      <td> : <?=$total->jumlah_paper=="" ? "0":$total->jumlah_paper?> </td>
     </tr>
 
 
@@ -25,18 +26,21 @@
 </div>
 
 
+<?php
+$history_pembelian_paper = $this->db->select("id_trans_person_trading,kode_transaksi,id_person,jumlah_paper,total_harga_paper,created,masa_aktif,waktu_mulai")
+                                        ->from("trans_person_trading")
+                                        ->where("id_person",sess('id_person'))
+                                        ->where("status_kontrak","belum")
+                                        ->order_by("created","desc")
+                                        ->get();
+ ?>
 
-
+ <?php if ($history_pembelian_paper->num_rows() > 0): ?>
   <div class="trading-info mt-3">
     <h5 class="trading-title"><i class="ti-receipt"></i> History Pembelian Paper</h5>
     <hr style="margin-top: 0;margin-bottom: 3px;">
 
-    <?php
-    $history_pembelian_paper = $this->db->select("id_trans_person_trading,kode_transaksi,id_person,jumlah_paper,total_harga_paper,created")
-                                            ->from("trans_person_trading")
-                                            ->where("id_person",sess('id_person'))
-                                            ->get();
-     ?>
+
 
      <?php foreach ($history_pembelian_paper->result() as $h_p): ?>
 
@@ -44,8 +48,13 @@
       <div class="list-history-paper">
         <span class="text-warning">KODE TRANSAKSI : <?=$h_p->kode_transaksi?></span>
         <span><i class="ti-alarm-clock"></i> <?=date("d/m/Y H:i",strtotime($h_p->created))?></span>
-        <span class="total-paper"><i class="ti-file"></i> Jumlah paper : <?=$h_p->jumlah_paper?></span>
+        <span class="total-paper"><i class="ti-files"></i> Jumlah paper : <?=$h_p->jumlah_paper?></span>
         <span><i class="ti-wallet"></i> Total Pembayaran Rp.<?=format_rupiah($h_p->total_harga_paper)?></span>
+        <?php if (masa_berlaku_paper($h_p->waktu_mulai) > 0): ?>
+          <span class="mt-1 text-danger" style="font-size:9px!important;">MULAI BERLAKU <?=date("d/m/Y",strtotime($h_p->waktu_mulai))?></span>
+          <?php else: ?>
+          <span class="mt-1 text-success" style="font-size:9px!important;">BERLAKU SAMPAI <?=date("d/m/Y",strtotime($h_p->masa_aktif))?></span>
+        <?php endif; ?>
       </div>
 
     <?php endforeach; ?>
@@ -54,3 +63,4 @@
     </div>
 
   </div>
+ <?php endif; ?>
