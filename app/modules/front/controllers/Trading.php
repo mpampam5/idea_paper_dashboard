@@ -52,7 +52,7 @@ class Trading extends MY_Controller{
     if ($this->form_validation->run()) {
 
       $masa_kontrak = get_info_trading("masa_kontrak");
-      $waktu_mulai = time_start_dividen_trading();
+      $waktu_mulai =  date('Y-m-d', strtotime("+1 month", strtotime(date('Y-m-d'))));
       $masa_aktif = date('Y-m-d', strtotime("+$masa_kontrak month", strtotime($waktu_mulai)));
       $insert = array('id_trading' => 1,
                       'kode_transaksi'=> $this->_kode(),
