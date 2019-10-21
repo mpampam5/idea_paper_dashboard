@@ -260,9 +260,9 @@ function _send_email($data_email)
     $config['charset']      = 'utf-8';
     $config['protocol']     = "smtp";
     $config['mailtype']     = "html";
-    $config['smtp_host']    = "ssl://ideadigitalindonesia.com";//pengaturan smtp
+    $config['smtp_host']    = "ssl://srv75.niagahoster.com";//pengaturan smtp
     $config['smtp_port']    = 465;
-    $config['smtp_user']    = "ideapaper@ideadigitalindonesia.com"; // isi dengan email kamu
+    $config['smtp_user']    = "no-replay@ideapaper.ideadigitalindonesia.com"; // isi dengan email kamu
     $config['smtp_pass']    = "@@111111qwerty"; // isi dengan password kamu
     $config['smtp_timeout'] = 4; //4 second
     $config['crlf']         = "\r\n";

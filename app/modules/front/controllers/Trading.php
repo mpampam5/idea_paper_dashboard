@@ -81,6 +81,23 @@ class Trading extends MY_Controller{
   }
 
 
+
+  function json_profit()
+  {
+    $this->load->library('Datatables');
+    header('Content-Type: application/json');
+    echo $this->model->json_profit();
+  }
+
+
+  function json_dividen()
+  {
+    $this->load->library('Datatables');
+    header('Content-Type: application/json');
+    echo $this->model->json_dividen();
+  }
+
+
     function _cek_paper($str)
     {
       $sisa_paper = get_info_trading("jumlah_paper")-total_paper_terpakai();

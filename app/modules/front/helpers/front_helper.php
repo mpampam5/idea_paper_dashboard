@@ -88,7 +88,8 @@ function balance()
   $biaya_sponsor = _cek_biaya_sponsor();
   $komisi_sponsor = _cek_komisi_sponsor();
   $investasi_trading = _investasi_trading();
-  $total = $topup + $komisi_sponsor - $withdraw - $biaya_sponsor - $investasi_trading;
+  $dividen = _investasi_dividen();
+  $total = $topup + $komisi_sponsor + $dividen - $withdraw - $biaya_sponsor - $investasi_trading;
   return $total;
 }
 
@@ -186,9 +187,9 @@ function get_info_trading($field)
 function total_paper_terpakai()
 {
   $ci=& get_instance();
-  $total_paper_terpakai = $ci->db->select("id_trans_person_trading,SUM(jumlah_paper) AS jumlah_paper")
+  $total_paper_terpakai = $ci->db->select("id_trans_person_trading,SUM(jumlah_paper) AS jumlah_paper,status_kontrak")
+                                  ->where("status_kontrak","belum")
                                  ->get("trans_person_trading")
-                                 // ->where("status_kontrak","belum")
                                  ->row();
   return $total_paper_terpakai->jumlah_paper;
 }
@@ -206,6 +207,9 @@ function _investasi_trading()
   return $query->total_harga_paper;
 }
 
+
+
+
 function time_start_dividen_trading()
 {
   $tgl1 = date("Y-m-d");// pendefinisian tanggal awal
@@ -216,6 +220,22 @@ function time_start_dividen_trading()
   $hasil = "$tahun-$bulan-1";
 
   return $hasil;
+}
+
+
+
+function _investasi_dividen()
+{
+  $ci=& get_instance();
+  $query = $ci->db->select("trading_dividen.id_trading_dividen,
+                            trading_dividen.id_trading_profit,
+                            trading_dividen.id_person,
+                            Sum(trading_dividen.dividen) AS dividen")
+                  ->from("trading_dividen")
+                  ->where("id_person",sess('id_person'))
+                  ->get()
+                  ->row();
+  return $query->dividen;
 }
 
 

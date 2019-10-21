@@ -46,4 +46,9 @@
     $('#modalContent').load($(this).attr('href'));
     $("#modalGue").modal('show');
   });
+
+  $(document).on("click","#reload-list",function(e){
+    location.reload();
+  });
+  
   </script>

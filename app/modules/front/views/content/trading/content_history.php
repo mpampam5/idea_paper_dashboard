@@ -13,7 +13,7 @@ $total = $this->db->select("id_trans_person_trading,kode_transaksi,id_person,SUM
     <hr style="margin-top: 0;margin-bottom: 1rem;">
     <table class="table-info-trading">
       <tr>
-        <th>Jumlah Paper Anda</th>
+        <th>Jumlah Paper Aktif</th>
         <td> : <?=$total->jumlah_paper=="" ? "0":$total->jumlah_paper?> </td>
       </tr>
 
@@ -29,10 +29,9 @@ $total = $this->db->select("id_trans_person_trading,kode_transaksi,id_person,SUM
 
 
   <?php
-  $history_pembelian_paper = $this->db->select("id_trans_person_trading,kode_transaksi,id_person,jumlah_paper,total_harga_paper,created,masa_aktif,waktu_mulai")
+  $history_pembelian_paper = $this->db->select("id_trans_person_trading,kode_transaksi,id_person,jumlah_paper,total_harga_paper,created,masa_aktif,waktu_mulai,status_kontrak")
                                           ->from("trans_person_trading")
                                           ->where("id_person",sess('id_person'))
-                                          ->where("status_kontrak","belum")
                                           ->order_by("created","desc")
                                           ->get();
    ?>
@@ -52,11 +51,16 @@ $total = $this->db->select("id_trans_person_trading,kode_transaksi,id_person,SUM
           <span><i class="ti-alarm-clock"></i> <?=date("d/m/Y H:i",strtotime($h_p->created))?></span>
           <span class="total-paper"><i class="ti-files"></i> Jumlah paper : <?=$h_p->jumlah_paper?></span>
           <span><i class="ti-wallet"></i> Total Pembayaran Rp.<?=format_rupiah($h_p->total_harga_paper)?></span>
-          <?php if (masa_berlaku_paper($h_p->waktu_mulai) > 0): ?>
-            <span class="mt-1 text-danger" style="font-size:9px!important;"><i class="fa fa-circle"></i> BELUM AKTIF&nbsp;|&nbsp;BERLAKU SAMPAI <?=date("d/m/Y",strtotime($h_p->masa_aktif))?></span>
+          <?php if ($h_p->status_kontrak=="selesai"): ?>
+            <span class="mt-1 text-danger" style="font-size:9px!important;"><i class="fa fa-circle"></i> TIDAK AKTIF&nbsp;|&nbsp;KONTRAK TELAH SELESAI PADA TANGGAL <?=date("d/m/Y",strtotime($h_p->masa_aktif))?></span>
             <?php else: ?>
-            <span class="mt-1 text-success" style="font-size:9px!important;"><i class="fa fa-circle"></i> AKTIF&nbsp;|&nbsp;BERLAKU SAMPAI <?=date("d/m/Y",strtotime($h_p->masa_aktif))?></span>
+              <?php if (masa_berlaku_paper($h_p->waktu_mulai) > 0): ?>
+                <span class="mt-1 text-danger" style="font-size:9px!important;"><i class="fa fa-circle"></i> BELUM AKTIF&nbsp;|&nbsp;BERLAKU SAMPAI <?=date("d/m/Y",strtotime($h_p->masa_aktif))?></span>
+                <?php else: ?>
+                <span class="mt-1 text-success" style="font-size:9px!important;"><i class="fa fa-circle"></i> AKTIF&nbsp;|&nbsp;BERLAKU SAMPAI <?=date("d/m/Y",strtotime($h_p->masa_aktif))?></span>
+              <?php endif; ?>
           <?php endif; ?>
+
         </div>
 
       <?php endforeach; ?>
