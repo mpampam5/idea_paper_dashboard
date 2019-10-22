@@ -144,7 +144,7 @@ class Anggota extends MY_Controller{
                               'password' => $password,
                               );
 
-          $this->_send_email($data_email);
+          // $this->_send_email($data_email);
 
 
           // Validasi DB trans
@@ -231,7 +231,7 @@ class Anggota extends MY_Controller{
       $config['mailtype']     = "html";
       $config['smtp_host']    = "ssl://ideadigitalindonesia.com";//pengaturan smtp
       $config['smtp_port']    = 465;
-      $config['smtp_user']    = "ideapaper@ideadigitalindonesia.com"; // isi dengan email kamu
+      $config['smtp_user']    = "no-reply@ideadigitalindonesia.com"; // isi dengan email kamu
       $config['smtp_pass']    = "@@111111qwerty"; // isi dengan password kamu
       $config['smtp_timeout'] = 4; //4 second
       $config['crlf']         = "\r\n";

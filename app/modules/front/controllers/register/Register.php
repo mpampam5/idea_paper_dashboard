@@ -161,7 +161,8 @@ function action()
                                 'password' => $password,
                                 );
 
-            $this->_send_email($data_email);
+            // $this->_send_email($data_email);
+            // matikan fungsi send mail
             $json['captcha_status'] = true;
             $json['alert'] = "pendaftaran sukses";
           }else {
@@ -260,9 +261,9 @@ function _send_email($data_email)
     $config['charset']      = 'utf-8';
     $config['protocol']     = "smtp";
     $config['mailtype']     = "html";
-    $config['smtp_host']    = "ssl://srv75.niagahoster.com";//pengaturan smtp
+    $config['smtp_host']    = "ssl://ideadigitalindonesia.com";//pengaturan smtp
     $config['smtp_port']    = 465;
-    $config['smtp_user']    = "no-replay@ideapaper.ideadigitalindonesia.com"; // isi dengan email kamu
+    $config['smtp_user']    = "no-reply@ideadigitalindonesia.com"; // isi dengan email kamu
     $config['smtp_pass']    = "@@111111qwerty"; // isi dengan password kamu
     $config['smtp_timeout'] = 4; //4 second
     $config['crlf']         = "\r\n";
@@ -289,12 +290,13 @@ function cek_temp()
   $data_email = array('id_register' => "MEM09348920",
                       'nik' => "1234567890342432",
                       'nama' => "muhammad irfan ibnu",
-                      'email' => "emaildsa@.com",
+                      'email' => "irmhaa381@gmail.com",
                       'telepon' => "0432423423",
                       'username' => "mpampam8888",
                       'password' => "2wsx.lo9",
                       );
-  $this->load->view('content/register/template_emails',$data_email);
+  // $this->load->view('content/register/template_emails',$data_email);
+  $this->_send_email($data_email);
 }
 
 
